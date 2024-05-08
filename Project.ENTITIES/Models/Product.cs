@@ -16,7 +16,7 @@ namespace Project.ENTITIES.Models
 
         //Relational Properties
         public virtual Category Category { get; set; }
-        public ICollection<ProductAndProductAttribute> Attributes { get; set; }
+        public virtual ICollection<ProductAndProductAttribute> Attributes { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
     }

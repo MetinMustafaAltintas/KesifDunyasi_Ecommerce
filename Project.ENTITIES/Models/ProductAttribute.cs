@@ -11,6 +11,6 @@ namespace Project.ENTITIES.Models
         public string AttributeName { get; set; } 
 
         //Relational Properties
-        public ICollection<ProductAndProductAttribute> ProductAttributes { get; set; }
+        public virtual ICollection<ProductAndProductAttribute> ProductAttributes { get; set; }
     }
 }

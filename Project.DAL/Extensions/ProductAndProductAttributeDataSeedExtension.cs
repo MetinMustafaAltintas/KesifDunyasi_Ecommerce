@@ -15,7 +15,7 @@ namespace Project.DAL.Extensions
         {
             List<ProductAndProductAttribute> productAndProductAttribute = new();
 
-            for (int i = 0; i < 11; i++)
+            for (int i = 1; i < 11; i++)
             {
                 ProductAndProductAttribute pPA = new()
                 {
