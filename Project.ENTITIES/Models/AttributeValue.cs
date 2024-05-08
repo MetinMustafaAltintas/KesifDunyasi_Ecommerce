@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project.ENTITIES.Models
 {
-    public class AttributeValue
+    public class AttributeValue :BaseEntity
     {
         public string Value { get; set; }
         public int ProductAttributeID { get; set; }
