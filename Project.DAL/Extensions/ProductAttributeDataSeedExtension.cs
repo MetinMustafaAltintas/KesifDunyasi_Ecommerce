@@ -21,7 +21,6 @@ namespace Project.DAL.Extensions
                 {
                     ID = i,
                     AttributeName = new Commerce("tr").ProductMaterial()
-                    
                 };
                 productAttributes.Add(pA);
             }

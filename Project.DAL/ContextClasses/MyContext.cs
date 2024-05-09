@@ -29,6 +29,7 @@ namespace Project.DAL.ContextClasses
             builder.ApplyConfiguration(new OrderDetailConfiguration());
             builder.ApplyConfiguration(new ShipperConfiguration());
             builder.ApplyConfiguration(new ProductAttributeConfiguration());
+            builder.ApplyConfiguration(new ProductAndProductAttributeConfiguration());
             CategoryDataSeedExtension.SeedCategories(builder);
             ProductDataSeedExtension.SeedProducts(builder);
             ProductAttributeDataSeedExtension.SeedProductAttribute(builder);
