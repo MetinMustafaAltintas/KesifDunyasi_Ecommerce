@@ -33,6 +33,9 @@ namespace Project.BLL.ServiceInjections
             services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
+            services.AddScoped<IProductAndProductAttributeRepository, ProductAndProductAttributeRepository>();
+            services.AddScoped<IProductAttributeRepository, ProductAttributeRepository>();
+            services.AddScoped<IShipperRepository, ShipperRepository>();
 
             return services;
         }

@@ -12,9 +12,9 @@ using Project.DAL.Extensions;
 
 namespace Project.DAL.ContextClasses
 {
-    public class MyContext : IdentityDbContext<AppUser, IdentityRole<int>, int>
+    public class MyContext : IdentityDbContext<AppUser,IdentityRole<int>, int>
     {
-        public MyContext(DbContextOptions<MyContext> options) : base(options)
+        public MyContext(DbContextOptions<MyContext> options):base(options)
         {
 
         }

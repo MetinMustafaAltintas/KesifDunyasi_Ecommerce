@@ -14,8 +14,8 @@ builder.Services.AddSession(x =>
     x.Cookie.IsEssential = true;
 });
 
-builder.Services.AddIdentityServices();
 builder.Services.AddDbContextService(); //DbContextService'imizi BLL'den alarak middleware'e entegre ettik...
+builder.Services.AddIdentityServices();
 
 builder.Services.AddRepServices();
 builder.Services.AddManagerServices();
@@ -38,6 +38,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Register}/{id?}");
 
 app.Run();
