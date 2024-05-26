@@ -14,14 +14,16 @@ namespace Project.BLL.ServiceInjections
     {
         public static IServiceCollection AddIdentityServices(this IServiceCollection services)
         {
-            services.AddIdentity<AppUser, IdentityRole<int>>(x =>
+            services.AddIdentity<AppUser, AppRole>(x =>
             {
-                x.Password.RequireDigit = true;
-                x.Password.RequiredLength = 3;
-                x.Password.RequireUppercase = true;
-                x.Password.RequireLowercase = true;
+                x.Password.RequireDigit = true; //Şifrede Sayı Gerekli olsun mu demektir.
+                x.Password.RequiredLength = 8; // şifrede en az 8 karakter uzunluğunda olması gereklidir
+                x.Password.RequireUppercase = true; // büyük harf gerekli olsun mu demektir
+                x.Password.RequireLowercase = true; // küçük harf gerekli olsun mu demektir
                 x.SignIn.RequireConfirmedEmail = true;
-                x.Password.RequireNonAlphanumeric = true;
+                x.Password.RequireNonAlphanumeric = true; // numeric karakterler var zorunlu olsun mu demektir
+                x.Lockout.MaxFailedAccessAttempts = 5; // 5 denemeden sonra kullanıcı yanlış giriyor ise hesabı kitlensin mi demektir
+                x.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // eğer hesab kitlenirse kaç dk kitlesin demektir
 
             }).AddEntityFrameworkStores<MyContext>();
 

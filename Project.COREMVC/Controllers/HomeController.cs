@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Project.COMMON.Tools;
 using Project.COREMVC.Models;
 using Project.COREMVC.Models.AppUsers;
+using Project.COREMVC.Models.ViewModels.AppUsers.PureVms;
 using Project.ENTITIES.Models;
 using System.Diagnostics;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
@@ -11,14 +12,15 @@ using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Project.COREMVC.Controllers
 {
+    [AutoValidateAntiforgeryToken] //Get ile gelen sayfada verilen özel bir token sayesinde Post'un bu tokensiz yapýlamamasýný saglar...PostMan gibi third part software'lerinden gözlemlediginizde direkt Post tarafýna ulasamadýgýnýzý göreceksiniz...
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         readonly UserManager<AppUser> _userManager;
-        readonly RoleManager<IdentityRole<int>> _roleManager;
+        readonly RoleManager<AppRole> _roleManager;
         readonly SignInManager<AppUser> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger , UserManager<AppUser> userManager, RoleManager<IdentityRole<int>> roleManager, SignInManager<AppUser> signInManager)
+        public HomeController(ILogger<HomeController> logger , UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, SignInManager<AppUser> signInManager)
         {
             _logger = logger;
             _userManager = userManager;
@@ -38,37 +40,45 @@ namespace Project.COREMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(UserRegisterModel model)
+        public async Task<IActionResult> Register(UserRegisterRequestModel model)
         {
-            //Cagri: Automapper
-            Guid specId = Guid.NewGuid();
-            AppUser appUser = new()
+            if (ModelState.IsValid)
             {
-                UserName = model.UserName,
-                Email = model.Email,
-                ActivationCode = specId
-            };
+                //Cagri: Automapper
+                Guid specId = Guid.NewGuid();
+                AppUser appUser = new()
+                {
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    ActivationCode = specId
+                };
 
-            IdentityResult result = await _userManager.CreateAsync(appUser, model.Password);
+                IdentityResult result = await _userManager.CreateAsync(appUser, model.Password);
 
-            if (result.Succeeded)
-            {
-                #region RolKontrolIslemleri
-                IdentityRole<int> appRole = await _roleManager.FindByNameAsync("Member");
-                if (appRole == null) await _roleManager.CreateAsync(new() { Name = "Member" });
-                await _userManager.AddToRoleAsync(appUser, "Member");
-                #endregion
+                if (result.Succeeded)
+                {
+                    #region RolKontrolIslemleri
+                    AppRole appRole = await _roleManager.FindByNameAsync("Member");
+                    if (appRole == null) await _roleManager.CreateAsync(new() { Name = "Member" });
+                    await _userManager.AddToRoleAsync(appUser, "Member");
+                    #endregion
 
 
-                string body = $"Hesabýnýz olusturulmustur...Üyeligini onaylamak icin lütfen http://localhost:5014/Home/ConfirmEmail?specId={specId}&id={appUser.Id} linkine týklayýnýz";
+                    string body = $"Hesabýnýz olusturulmustur...Üyeligini onaylamak icin lütfen http://localhost:5014/Home/ConfirmEmail?specId={specId}&id={appUser.Id} linkine týklayýnýz";
 
-                MailService.Send(model.Email, body: body);
-                TempData["Message"] = "Mailinizi kontrol ediniz";
-                return RedirectToAction("RedirectPanel");
+                    MailService.Send(model.Email, body: body);
+                    TempData["Message"] = "Mailinizi kontrol ediniz";
+                    return RedirectToAction("RedirectPanel");
+
+                }
+                foreach (IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
 
             }
-
-            return View();
+            return View(model);
         }
 
         public async Task<IActionResult> ConfirmEmail(Guid specId, int id)
@@ -95,39 +105,75 @@ namespace Project.COREMVC.Controllers
             return View();
         }
 
-        public IActionResult SignIn()
+        public IActionResult SignIn(string returnUrl)
         {
-            return View();
+            UserSignInRequestModel usModel = new()
+            {
+                ReturnUrl = returnUrl
+            };
+            return View(usModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignIn(UserRegisterModel model)
+        public async Task<IActionResult> SignIn(UserSignInRequestModel model)
         {
-            AppUser appUser = await _userManager.FindByNameAsync(model.UserName);
-
-            SignInResult result = await _signInManager.PasswordSignInAsync(appUser, model.Password, true, true);
-            if (result.Succeeded)
+            if (ModelState.IsValid)
             {
-                IList<string> roles = await _userManager.GetRolesAsync(appUser);
-                if (roles.Contains("Admin"))
+                try
                 {
-                    return RedirectToAction("Index", "Category", new { Area = "Admin" });
-                }
-                else if (roles.Contains("Member"))
-                {
-                    return RedirectToAction("Privacy");
-                }
-                return RedirectToAction("Panel");
-            }
-            else if (result.IsNotAllowed)
-            {
-                return RedirectToAction("MailPanel");
-            }
+                    AppUser appUser = await _userManager.FindByNameAsync(model.UserName);
 
-            TempData["Message"] = "Kullanýcý bulunamadý";
-            return RedirectToAction("SignIn");
+                    SignInResult result = await _signInManager.PasswordSignInAsync(appUser, model.Password, model.RememberMe, true);
+                    if (result.Succeeded)
+                    {
+                        if (!string.IsNullOrWhiteSpace(model.ReturnUrl))
+                        {
+                            return Redirect(model.ReturnUrl);
+                        }
+
+                        IList<string> roles = await _userManager.GetRolesAsync(appUser);
+                        if (roles.Contains("Admin"))
+                        {
+                            return RedirectToAction("Index", "Category", new { Area = "Admin" });
+                        }
+                        else if (roles.Contains("Member"))
+                        {
+                            return RedirectToAction("Privacy");
+                        }
+                        return RedirectToAction("Panel");
+                    }
+                    else if (result.IsNotAllowed)
+                    {
+                        return RedirectToAction("MailPanel");
+                    }
+                    else if (result.IsLockedOut)
+                    {
+                        DateTimeOffset? lockOutEndDate = await _userManager.GetLockoutEndDateAsync(appUser);
+
+                        ModelState.AddModelError("", $"Hesabýnýz {(lockOutEndDate.Value.UtcDateTime - DateTime.UtcNow).Minutes} dakika süreyle askýya alýnmýstýr");
+                    }
+                    else
+                    {
+                        string message = "";
+                        if (appUser != null)
+                        {
+                            int maxFailedAttempts = _userManager.Options.Lockout.MaxFailedAccessAttempts;
+
+                            message = $"Eger {maxFailedAttempts - await _userManager.GetAccessFailedCountAsync(appUser)} kez daha yanlýs giriþ yaparsanýz hesabýnýz gecici olarak askýya alýnacaktýr";
+                        }
+
+                        ModelState.AddModelError("", message);
+                    }
+                }
+                catch (Exception)
+                {
+                    TempData["Message"] = "Kullanýcý bulunamadý";
+                    
+                }
+                
+            }
+            return View(model);
         }
-
         public IActionResult MailPanel()
         {
             return View();
@@ -138,6 +184,17 @@ namespace Project.COREMVC.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> SignOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index");
         }
     }
 }

@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="img/favicon.png">
 
     <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
-    
+
     <!-- Bootstrap core CSS -->
     <link href="~/OuterTools/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/OuterTools/css/bootstrap-reset.css" rel="stylesheet">
@@ -20,7 +20,9 @@
     <!-- Custom styles for this template -->
     <link href="~/OuterTools/css/style.css" rel="stylesheet">
     <link href="~/OuterTools/css/style-responsive.css" rel="stylesheet" />
-
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
@@ -32,6 +34,8 @@
 <body>
 
     <section id="container">
+
+
         <!--header start-->
         <header class="header white-bg">
             <div class="sidebar-toggle-box">
@@ -261,11 +265,20 @@
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
+
+
                             <div class="log-arrow-up"></div>
+                            @RenderSection("Sepet", false)
+                            @*
+                            Burada actıgımız RenderSection, doldurulması zorunlu bir alan degildir(false argümanı burada bunu belirtmektedir)... Lakin doldurulmak istenirse Layout'ta degil bir View'da doldurulacaktır...Ve o View cagrıldıgı zaman o View icin Layout'in bu kesiminde gözükecektir...
+                            *@
+
+
+                            @*
                             <li><a href="#"><i class=" icon-suitcase"></i>Profile</a></li>
                             <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
                             <li><a href="#"><i class="icon-bell-alt"></i> Notification</a></li>
-                            <li><a href="login.html"><i class="icon-key"></i> Log Out</a></li>
+                            <li><a href="login.html"><i class="icon-key"></i> Log Out</a></li> *@
                         </ul>
                     </li>
                     <!-- user login dropdown end -->
@@ -443,7 +456,7 @@
         <!--main content start-->
         <section id="main-content">
             <section class="wrapper">
-               @RenderBody() 
+                @RenderBody()
             </section>
         </section>
         <!--main content end-->

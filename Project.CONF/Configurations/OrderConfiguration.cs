@@ -15,6 +15,8 @@ namespace Project.CONF.Configurations
         {
             base.Configure(builder);
             builder.Property(x => x.PriceOfOrder).HasColumnType("money");
+            builder.HasMany(x => x.OrderDetails).WithOne(x => x.Order).HasForeignKey(x => x.OrderID).IsRequired();
+
         }
     }
 }

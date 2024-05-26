@@ -13,7 +13,7 @@ namespace Project.DAL.Extensions
     {
         public static void SeedUsers(ModelBuilder modelBuilder)
         {
-            IdentityRole<int> appRole = new()
+            AppRole appRole = new()
             {
                 Id = 1,
                 Name = "Admin",
@@ -21,7 +21,7 @@ namespace Project.DAL.Extensions
                 ConcurrencyStamp = Guid.NewGuid().ToString() //Bu ifade sisteminizin yeni bir Guid yaratmasını saglar
             };
 
-            modelBuilder.Entity<IdentityRole<int>>().HasData(appRole);
+            modelBuilder.Entity<AppRole>().HasData(appRole);
 
             PasswordHasher<AppUser> passwordHasher = new();
 
@@ -34,12 +34,12 @@ namespace Project.DAL.Extensions
                 NormalizedUserName = "METIN",
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                PasswordHash = passwordHasher.HashPassword(null, "metin57")
+                PasswordHash = passwordHasher.HashPassword(null, "Metin57.")
             };
 
             modelBuilder.Entity<AppUser>().HasData(user);
 
-            modelBuilder.Entity<IdentityUserRole<int>>().HasData(new IdentityUserRole<int>
+            modelBuilder.Entity<AppUserRole>().HasData(new AppUserRole
             {
                 RoleId = appRole.Id,
                 UserId = user.Id

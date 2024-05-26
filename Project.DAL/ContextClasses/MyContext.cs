@@ -12,7 +12,9 @@ using Project.DAL.Extensions;
 
 namespace Project.DAL.ContextClasses
 {
-    public class MyContext : IdentityDbContext<AppUser,IdentityRole<int>, int>
+    //Identity kullanacak iseniz IdentityDbContext class'indan miras almalısınız ve  eger 3'ten fazla Identity class'i customize ettiyseniz IdentityDbContext'in generic yapısının tüm tiplerini acıkca vermek zorundasınız...
+
+    public class MyContext : IdentityDbContext<AppUser, AppRole, int, IdentityUserClaim<int>, AppUserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public MyContext(DbContextOptions<MyContext> options):base(options)
         {
@@ -22,6 +24,8 @@ namespace Project.DAL.ContextClasses
         {
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new AppUserConfiguration());
+            builder.ApplyConfiguration(new AppRoleConfiguration());
+            builder.ApplyConfiguration(new AppUserRoleConfiguration());
             builder.ApplyConfiguration(new AppUserProfileConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new ProductConfiguration());
@@ -37,6 +41,8 @@ namespace Project.DAL.ContextClasses
             UserRoleDataSeedExtension.SeedUsers(builder);
         }
         public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<AppRole> AppRoles { get; set; }
+        public DbSet<AppUserRole> AppUserRoles { get; set; }
         public DbSet<AppUserProfile> Profiles { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }

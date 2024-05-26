@@ -1,24 +1,35 @@
-﻿@model UserRegisterModel
+﻿@model UserRegisterRequestModel
 
-<form asp-action="Register" asp-controller="Home" method="post" class="p-3 w-75 m-auto">
+@{
+    Layout = "~/Views/Shared/_UserRegisterLayout.cshtml";
+}
+<form asp-action="Register" asp-controller="Home" method="post" class="form-signin">
+    <h2 class="form-signin-heading">Kayıt Ol</h2>
+    <div class="login-wrap">
 
-    <div class="mb-3">
-        <label>Kullanıcı ismini giriniz</label>
-        <input asp-for="UserName" class="form-control" />
+        <span class="text-danger" asp-validation-for="UserName"></span>
+        <input asp-for="UserName" type="text" class="form-control" placeholder="Kullanıcı Adı">
+
+        <span class="text-danger" asp-validation-for="Email"></span>
+        <input asp-for="Email" type="email" class="form-control" placeholder="E-posta">
+        <br />
+        <span class="text-danger" asp-validation-for="Password"></span>
+        <input asp-for="Password" type="password" class="form-control" placeholder="Şifre">
+
+        <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+        <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Şifreyi Tekrar Girin">
+
+        <br>
+        <button class="btn btn-lg btn-login btn-block" type="submit">Kayıt Ol</button>
+
+        <div class="registration">
+            Zaten Kayıtlı mısınız?
+            <a asp-controller="Home" asp-action="SignIn">Giriş yap</a>
+        </div>
+
     </div>
 
-    <div class="mb-3">
-        <label>Sifre giriniz</label>
-        <input asp-for="Password" class="form-control" />
-    </div>
-
-    <div class="mb-3">
-        <label>Email giriniz</label>
-        <input asp-for="Email" class="form-control" />
-    </div>
-
-    <div class="mb-3">
-        <button class="btn btn-primary">Kayıt ol</button>
+    <div class="text-danger" asp-validation-summary="ModelOnly">
     </div>
 
 </form>

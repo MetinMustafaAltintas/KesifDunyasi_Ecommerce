@@ -1,0 +1,53 @@
+﻿@model List<Product>
+
+<h1>
+    <span class="text-danger">@TempData["Message"]</span>
+</h1>
+
+<section class="panel">
+    <header class="panel-heading">
+        DataTables hidden row details example
+    </header>
+    <div class="panel-body">
+        <div class="adv-table">
+            <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+                <thead>
+                    <tr>
+                        <th>Urun ID</th>
+                        <th>Urun Ismi</th>
+                        <th>Fiyat</th>
+                        <th>Kategorisi</th>
+                        <th>Resim</th>
+                        <th class="hidden-phone">Stok</th>
+                        <th class="hidden-phone">Durumu</th>
+                        <th class="hidden-phone">Guncelle</th>
+                        <th class="hidden-phone">Sil</th>
+                        <th class="hidden-phone">Yok Et</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (Product item in Model)
+                    {
+                        <tr class="gradeX">
+                            <td>@item.ID</td>
+                            <td>
+                                @item.ProductName
+                            </td>
+                            <td>@item.UnitPrice</td>
+                            <td>@item.Category.CategoryName</td>
+                            <td><img width="30" height="30" src="@item.ImagePath" /></td>
+
+                            <td class="hidden-phone">@item.UnitsInStock</td>
+                            <td class="center hidden-phone">@item.Status</td>
+                            <td class="center hidden-phone"><a asp-action="UpdateProduct" asp-route-id="@item.ID" class="btn btn-warning">Güncelle</a></td>
+                            <td class="center hidden-phone"><a asp-action="DeleteProduct" asp-route-id="@item.ID" class="btn btn-danger">Sil</a></td>
+                            <td class="center hidden-phone"><a asp-action="DestroyProduct" asp-route-id="@item.ID" class="btn btn-danger">Yok et</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</section>

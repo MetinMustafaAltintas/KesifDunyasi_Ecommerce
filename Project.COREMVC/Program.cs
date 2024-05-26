@@ -3,6 +3,8 @@ using Project.BLL.ServiceInjections;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpClient(); //Eger bir API consume edilecekse HTTP protokolünde client tarafýnda oldugumuzu Middleware'e bildirmeliyiz...
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDistributedMemoryCache(); //Eger Session kompleks yapýlarlar calýsmak icin Extension metodu eklenme durumuna marýz kalmýssa bu kod projenizin saglýklý calýsmasý icin gereklidir...
@@ -16,6 +18,8 @@ builder.Services.AddSession(x =>
 
 builder.Services.AddDbContextService(); //DbContextService'imizi BLL'den alarak middleware'e entegre ettik...
 builder.Services.AddIdentityServices();
+
+builder.Services.AddCookieServices();
 
 builder.Services.AddRepServices();
 builder.Services.AddManagerServices();

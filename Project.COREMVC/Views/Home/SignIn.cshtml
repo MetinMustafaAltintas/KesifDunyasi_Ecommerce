@@ -1,30 +1,83 @@
-﻿@model UserRegisterModel
+﻿@model UserSignInRequestModel
+@{
+
+    Layout = "~/Views/Shared/_UserloginLayout.cshtml";
+}
 
 <center>
-    <h1>
-        SignIn'e hosgeldiniz
-        @TempData["Message"]
-    </h1>
+    <br /><br /><br />
+    @if (TempData["Message"] != null)
+    {
+        <h1 class="alert alert-danger">
+            <b>@TempData["Message"]!</b>
+        </h1>
+    }
 
-    <form asp-action="SignIn" asp-controller="Home" method="post" class="p-3 w-75 m-auto">
+    <form asp-action="SignIn" asp-controller="Home" method="post" class="form-signin">
+    <input type="hidden" asp-for="ReturnUrl" />
+    <h2 class="form-signin-heading">Giriş Yap</h2>
+    <div class="login-wrap">
 
-        <div class="mb-3">
-            <label>Kullanıcı ismini giriniz</label>
-            <input asp-for="UserName" class="form-control" />
+        <span class="text-danger" asp-validation-for="UserName"></span>
+        <input asp-for="UserName" type="text" class="form-control" placeholder="Kullanıcı Adı">
+
+        <span class="text-danger" asp-validation-for="Password"></span>
+        <input asp-for="Password" type="password" class="form-control" placeholder="Şifre">
+
+        <input type="checkbox" asp-for="RememberMe" class="form-check-input" />
+            <label class="form-check-label">Beni Hatırla?  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="pull-right">
+                <a data-toggle="modal" href="#myModal">
+                          Parolanızı mı unuttunuz?
+                </a>
+
+            </span>
+        </label>
+        <button class="btn btn-lg btn-login btn-block" type="submit">Giriş Yap</button>        
+        <div class="registration">
+            Henüz bir hesabınız yok mu? 
+            <a class="" asp-action="Register">
+                Bir hesap oluşturun
+            </a>
         </div>
 
-        <div class="mb-3">
-            <label>Sifre giriniz</label>
-            <input asp-for="Password" class="form-control" />
+    </div>
+        <div class="text-danger" asp-validation-summary="ModelOnly">
         </div>
 
+    <!-- Modal -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Forgot Password ?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Enter your e-mail address below to reset your password.</p>
+                    <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
 
-
-        <div class="mb-3">
-            <button class="btn btn-primary">Giriş yap</button>
+                </div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                    <button class="btn btn-success" type="button">Submit</button>
+                </div>
+            </div>
         </div>
+    </div>
+    <!-- modal -->
 
-    </form>
-
-
+</form>
 </center>
+
+ <script>
+$(document).ready(function(){
+    // Belirli bir süre sonra uyarı kutularını kapat
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+        });
+    }, 5000); // 5 saniye beklet
+
+});
+</script>

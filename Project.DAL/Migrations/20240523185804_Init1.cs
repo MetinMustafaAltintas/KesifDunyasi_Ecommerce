@@ -19,6 +19,10 @@ namespace Project.DAL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -178,7 +182,11 @@ namespace Project.DAL.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -359,29 +367,29 @@ namespace Project.DAL.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 1, "f95d0995-b517-4a57-b014-93291bb51268", "Admin", "ADMIN" });
+                columns: new[] { "Id", "ConcurrencyStamp", "CreatedDate", "DeletedDate", "ModifiedDate", "Name", "NormalizedName", "Status" },
+                values: new object[] { 1, "e1525353-927b-405a-808d-8120ac3b9f93", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6909), null, null, "Admin", "ADMIN", 1 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ActivationCode", "ConcurrencyStamp", "CreatedDate", "DeletedDate", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "ModifiedDate", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, null, "d895f34c-32b0-44cf-806d-efb543015175", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(8509), null, "metinmustafaaltintas@gmail.com", true, false, null, null, "METINMUSTAFAALTINTAS@GMAIL.COM", "METIN", "AQAAAAIAAYagAAAAEHn2InUbbx8uEDTG1Msi8Bz39xVEeVmeh2ERGAtAkw3qdgAz4+k85wi17OywQtzWsw==", null, false, "57ccfbbf-716d-4e3b-abad-8063979787d2", 1, false, "metin" });
+                values: new object[] { 1, 0, null, "992de8dd-d2de-4308-a34f-68f8dba8f493", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(7321), null, "metinmustafaaltintas@gmail.com", true, false, null, null, "METINMUSTAFAALTINTAS@GMAIL.COM", "METIN", "AQAAAAIAAYagAAAAEGrfF4E0oZE1dI0aVKDY24AH0LvUK7tb9wm/qSlrCGnn6IzfOtI0Bp/aXWj3cJKI3Q==", null, false, "dff64831-68b7-4c6a-95e7-2bc2b0a34f79", 1, false, "metin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "ID", "CategoryName", "CreatedDate", "DeletedDate", "Description", "ModifiedDate", "Status" },
                 values: new object[,]
                 {
-                    { 1, "Shoes", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(5506), null, "Ex lambadaki sarmal sandalye un ut çorba qui consequatur inventore.", null, 1 },
-                    { 2, "Sports", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(5922), null, "Dağılımı için non ea quis et doğru consequatur rem voluptatem.", null, 1 },
-                    { 3, "Jewelery", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(6005), null, "Ekşili consequuntur consectetur bilgisayarı architecto ullam sıradanlıktan mi exercitationem explicabo.", null, 1 },
-                    { 4, "Books", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(6088), null, "Makinesi lambadaki quia iusto exercitationem in uzattı velit duyulmamış aliquam.", null, 1 },
-                    { 5, "Toys", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(6160), null, "Magnam magni odit bundan domates umut rem türemiş gülüyorum enim.", null, 1 },
-                    { 6, "Games", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(6233), null, "Gördüm ut oldular lambadaki odio incidunt quis ipsum ea architecto.", null, 1 },
-                    { 7, "Computers", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(6302), null, "Oldular consequuntur voluptas voluptate odio masanın ex düşünüyor voluptatem corporis.", null, 1 },
-                    { 8, "Sports", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(6379), null, "Gülüyorum camisi eaque voluptatem sit aut suscipit ad öyle quia.", null, 1 },
-                    { 9, "Shoes", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(6447), null, "Camisi consequuntur suscipit beğendim dicta gitti mıknatıslı ut et quaerat.", null, 1 },
-                    { 10, "Books", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(6514), null, "Sed iusto incidunt ut voluptatem nisi consequatur sequi ducimus fugit.", null, 1 }
+                    { 1, "Books", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(3495), null, "Ex otobüs orta adipisci aspernatur adanaya ut layıkıyla eos layıkıyla.", null, 1 },
+                    { 2, "Computers", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(4218), null, "Duyulmamış kalemi sinema adanaya mutlu masanın dolorem ama bilgiyasayarı quam.", null, 1 },
+                    { 3, "Grocery", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(4308), null, "Nihil ut eius domates dışarı enim voluptatem incidunt adresini veritatis.", null, 1 },
+                    { 4, "Computers", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(4395), null, "Beatae ötekinden ut exercitationem consectetur esse velit qui doloremque sandalye.", null, 1 },
+                    { 5, "Industrial", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(4476), null, "Okuma quam nemo esse voluptatem veritatis aspernatur ışık masaya ışık.", null, 1 },
+                    { 6, "Music", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(4548), null, "Bundan değirmeni voluptatem göze enim ratione non aspernatur doloremque nostrum.", null, 1 },
+                    { 7, "Jewelery", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(4620), null, "Dolore magnam corporis minima mıknatıslı ötekinden sit cesurca inventore ullam.", null, 1 },
+                    { 8, "Industrial", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(4691), null, "Adresini tv oldular ama dağılımı gülüyorum quaerat çıktılar quia ea.", null, 1 },
+                    { 9, "Electronics", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(4779), null, "Masaya teldeki iure çünkü voluptatem dolayı layıkıyla voluptate explicabo magni.", null, 1 },
+                    { 10, "Toys", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(4852), null, "Et okuma voluptate reprehenderit consequatur batarya odit quasi ut ışık.", null, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -389,38 +397,38 @@ namespace Project.DAL.Migrations
                 columns: new[] { "ID", "AttributeName", "CreatedDate", "DeletedDate", "ModifiedDate", "Status" },
                 values: new object[,]
                 {
-                    { 1, "Concrete", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7756), null, null, 1 },
-                    { 2, "Granite", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7789), null, null, 1 },
-                    { 3, "Fresh", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7809), null, null, 1 },
-                    { 4, "Wooden", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7829), null, null, 1 },
-                    { 5, "Fresh", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7848), null, null, 1 },
-                    { 6, "Metal", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7869), null, null, 1 },
-                    { 7, "Metal", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7888), null, null, 1 },
-                    { 8, "Fresh", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7908), null, null, 1 },
-                    { 9, "Fresh", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7927), null, null, 1 },
-                    { 10, "Steel", new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7948), null, null, 1 }
+                    { 1, "Wooden", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6346), null, null, 1 },
+                    { 2, "Steel", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6385), null, null, 1 },
+                    { 3, "Cotton", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6408), null, null, 1 },
+                    { 4, "Soft", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6428), null, null, 1 },
+                    { 5, "Soft", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6449), null, null, 1 },
+                    { 6, "Concrete", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6472), null, null, 1 },
+                    { 7, "Plastic", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6493), null, null, 1 },
+                    { 8, "Concrete", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6514), null, null, 1 },
+                    { 9, "Frozen", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6534), null, null, 1 },
+                    { 10, "Cotton", new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6555), null, null, 1 }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[] { 1, 1 });
+                columns: new[] { "RoleId", "UserId", "CreatedDate", "DeletedDate", "ModifiedDate", "Status" },
+                values: new object[] { 1, 1, new DateTime(2024, 5, 23, 21, 58, 3, 870, DateTimeKind.Local).AddTicks(7167), null, null, 1 });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "ID", "CategoryID", "CreatedDate", "DeletedDate", "ImagePath", "ModifiedDate", "ProductName", "Status", "UnitPrice", "UnitsInStock" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(6660), null, "http://lorempixel.com/640/480/nightlife", null, "Refined Soft Hat", 1, 936.98m, 100 },
-                    { 2, 2, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(6940), null, "http://lorempixel.com/640/480/nightlife", null, "Tasty Fresh Chips", 1, 821.96m, 100 },
-                    { 3, 3, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7035), null, "http://lorempixel.com/640/480/nightlife", null, "Practical Rubber Chair", 1, 435.76m, 100 },
-                    { 4, 4, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7120), null, "http://lorempixel.com/640/480/nightlife", null, "Handmade Wooden Chair", 1, 881.02m, 100 },
-                    { 5, 5, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7199), null, "http://lorempixel.com/640/480/nightlife", null, "Intelligent Frozen Gloves", 1, 607.18m, 100 },
-                    { 6, 6, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7290), null, "http://lorempixel.com/640/480/nightlife", null, "Rustic Steel Cheese", 1, 788.21m, 100 },
-                    { 7, 7, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7373), null, "http://lorempixel.com/640/480/nightlife", null, "Awesome Soft Fish", 1, 612.82m, 100 },
-                    { 8, 8, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7453), null, "http://lorempixel.com/640/480/nightlife", null, "Sleek Rubber Bike", 1, 17.40m, 100 },
-                    { 9, 9, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7533), null, "http://lorempixel.com/640/480/nightlife", null, "Awesome Frozen Sausages", 1, 489.98m, 100 },
-                    { 10, 10, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(7616), null, "http://lorempixel.com/640/480/nightlife", null, "Unbranded Wooden Chips", 1, 532.01m, 100 }
+                    { 1, 1, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(5057), null, "http://lorempixel.com/640/480/nightlife", null, "Rustic Steel Fish", 1, 854.81m, 100 },
+                    { 2, 2, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(5438), null, "http://lorempixel.com/640/480/nightlife", null, "Generic Granite Chips", 1, 252.98m, 100 },
+                    { 3, 3, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(5547), null, "http://lorempixel.com/640/480/nightlife", null, "Intelligent Soft Chair", 1, 631.66m, 100 },
+                    { 4, 4, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(5637), null, "http://lorempixel.com/640/480/nightlife", null, "Rustic Fresh Shirt", 1, 358.00m, 100 },
+                    { 5, 5, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(5723), null, "http://lorempixel.com/640/480/nightlife", null, "Small Fresh Cheese", 1, 903.52m, 100 },
+                    { 6, 6, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(5813), null, "http://lorempixel.com/640/480/nightlife", null, "Fantastic Steel Mouse", 1, 843.69m, 100 },
+                    { 7, 7, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(5912), null, "http://lorempixel.com/640/480/nightlife", null, "Refined Rubber Towels", 1, 827.56m, 100 },
+                    { 8, 8, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6004), null, "http://lorempixel.com/640/480/nightlife", null, "Unbranded Frozen Sausages", 1, 630.32m, 100 },
+                    { 9, 9, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6090), null, "http://lorempixel.com/640/480/nightlife", null, "Practical Cotton Car", 1, 550.50m, 100 },
+                    { 10, 10, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6176), null, "http://lorempixel.com/640/480/nightlife", null, "Unbranded Soft Keyboard", 1, 747.44m, 100 }
                 });
 
             migrationBuilder.InsertData(
@@ -428,16 +436,16 @@ namespace Project.DAL.Migrations
                 columns: new[] { "ProductAttributeID", "ProductID", "CreatedDate", "DeletedDate", "ModifiedDate", "Status", "Value" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(8012), null, null, 1, "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality" },
-                    { 2, 2, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(8051), null, null, 1, "The Football Is Good For Training And Recreational Purposes" },
-                    { 3, 3, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(8072), null, null, 1, "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality" },
-                    { 4, 4, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(8091), null, null, 1, "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit" },
-                    { 5, 5, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(8109), null, null, 1, "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles" },
-                    { 6, 6, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(8129), null, null, 1, "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support" },
-                    { 7, 7, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(8147), null, null, 1, "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart" },
-                    { 8, 8, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(8166), null, null, 1, "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles" },
-                    { 9, 9, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(8185), null, null, 1, "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J" },
-                    { 10, 10, new DateTime(2024, 5, 16, 21, 29, 16, 554, DateTimeKind.Local).AddTicks(8205), null, null, 1, "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals" }
+                    { 1, 1, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6626), null, null, 1, "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive" },
+                    { 2, 2, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6657), null, null, 1, "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals" },
+                    { 3, 3, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6680), null, null, 1, "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016" },
+                    { 4, 4, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6714), null, null, 1, "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles" },
+                    { 5, 5, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6737), null, null, 1, "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart" },
+                    { 6, 6, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6760), null, null, 1, "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J" },
+                    { 7, 7, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6781), null, null, 1, "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients" },
+                    { 8, 8, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6801), null, null, 1, "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles" },
+                    { 9, 9, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6820), null, null, 1, "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive" },
+                    { 10, 10, new DateTime(2024, 5, 23, 21, 58, 3, 776, DateTimeKind.Local).AddTicks(6841), null, null, 1, "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals" }
                 });
 
             migrationBuilder.CreateIndex(
