@@ -1,0 +1,45 @@
+﻿@model UpdateProductPageVM
+
+<form asp-action="UpdateProduct" asp-controller="Product" method="post" class="p-3 w-75 m-auto" enctype="multipart/form-data">
+
+    <input type="hidden" asp-for="Product.ID" />
+    <input type="hidden" asp-for="Product.ImagePath" />
+    <div class="mb-3">
+        <label>Ürün İsmini giriniz</label>
+        <input asp-for="Product.ProductName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Fiyat giriniz</label>
+        <input asp-for="Product.Unitprice" class="form-control" />
+
+
+    </div>
+
+    <div class="mb-3">
+        <label>Stok giriniz</label>
+        <input asp-for="Product.UnitsInStock" class="form-control" />
+
+
+    </div>
+
+    <div class="mb-3">
+        <label>Kategori Seciniz</label>
+        <select asp-for="Product.CategoryID" asp-items='new SelectList(Model.Categories,"ID","CategoryName")'>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Dosya seciniz</label>
+        <input type="file" name="formFile" class="form-control" />
+    </div>
+
+    <br />
+    <div class="mb-3">
+        <button class="btn btn-primary">Ürünü Güncelle</button>
+    </div>
+
+    <div class="text-danger" asp-validation-summary="ModelOnly">
+    </div>
+
+</form>

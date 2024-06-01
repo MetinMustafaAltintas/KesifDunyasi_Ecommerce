@@ -1,0 +1,21 @@
+﻿@model UpdateUserPageVM
+
+<h1>
+    <span class="text-danger">@TempData["Message"]</span>
+</h1>
+<form asp-action="UpdateUser" asp-controller="User" method="post" class="p-3 w-75 m-auto">
+
+    <input type="hidden" asp-for="UpdateUserPureVM.id" />
+    <div class="mb-3">
+        <label>Email</label>
+        <input asp-for="UpdateUserPureVM.Email" type="email" class="form-control" />
+    </div>
+    <br />
+    <div class="mb-3">
+        <button class="btn btn-primary">E-mail Güncelle</button>
+    </div>
+
+
+    <div class="text-danger" asp-validation-summary="ModelOnly">
+    </div>
+</form>

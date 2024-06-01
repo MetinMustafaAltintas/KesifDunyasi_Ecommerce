@@ -1,0 +1,77 @@
+﻿@model ProductDetailPageVM
+
+<h1>
+    <span class="text-danger">@TempData["Message"]</span>
+</h1>
+<!-- page start-->
+<div class="row">
+    <div class="col-md-12">
+
+        <section class="panel">
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="pro-img-details">
+                        
+
+                        @if (@Model.ProductDetails.ImagePath.Contains("nightlife"))
+                        {
+                            <img src="/images/BasicFoto.png" />
+                        }
+                        else
+                        {
+                            <img src="@Model.ProductDetails.ImagePath" alt="" />
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="pro-d-title">
+                        <a  class="">
+                            <b>Ürün İsmi:</b>@Model.ProductDetails.ProductName
+                        </a>
+                    </h4>
+                    <p>
+
+                        @foreach (AttributeValuePureVM item in Model.Attributes)
+                        {
+
+                            <td><b>@item.AttributeName:</b>@item.Value </td><br />
+                            
+                        }
+                        
+                    </p>
+                    <div class="product_meta">
+                        <span class="posted_in"> <strong>Kategorisi:</strong>@Model.ProductDetails.CategoryName</a></span>
+                    </div>
+                    <div class="m-bot15"> <strong>Fiyat : </strong>  <span class="pro-price"> @Model.ProductDetails.Unitprice.ToString("C", new System.Globalization.CultureInfo("tr-TR"))</span></div>
+                </div>
+                <td class="center hidden-phone"><a style="position:relative; bottom: 10px; left:auto;" asp-action="GetProductProperty" asp-route-id="@Model.ProductDetails.ID" class="btn btn-info">Özellikleri Güncelle</a></td>
+                <td class="center hidden-phone"><a style="position:relative; bottom: 10px; left:auto" asp-action="CreateProductProperty" asp-route-id="@Model.ProductDetails.ID" class="btn btn-info">Özellik Ekle</a></td>
+            </div>
+            
+        </section>
+
+        <section class="panel">
+            <header class="panel-heading tab-bg-dark-navy-blue">
+                <ul class="nav nav-tabs ">
+                    <li class="active">
+                        <a data-toggle="tab" href="#description">
+                            Ürün Özellikleri
+                        </a>
+                    </li>
+                </ul>
+            </header>
+            <div class="panel-body">
+                <div class="tab-content tasi-tab">
+                    <div id="description" class="tab-pane active">
+                        @foreach (AttributeValuePureVM item in Model.Attributes)
+                        {
+                            <a><b>@item.AttributeName:</b>@item.Value</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+<!-- page end-->

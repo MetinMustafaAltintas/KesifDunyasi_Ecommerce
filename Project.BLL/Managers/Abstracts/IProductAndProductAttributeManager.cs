@@ -9,5 +9,6 @@ namespace Project.BLL.Managers.Abstracts
 {
     public interface IProductAndProductAttributeManager : IManager<ProductAndProductAttribute>
     {
+        
     }
 }

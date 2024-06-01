@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using NuGet.Common;
 using Project.COMMON.Tools;
+using Project.COREMVC.Areas.Admin.Models.User.PureVMs;
 using Project.COREMVC.Models;
 using Project.COREMVC.Models.AppUsers;
+using Project.COREMVC.Models.ViewModels.AppUsers.PageVms;
 using Project.COREMVC.Models.ViewModels.AppUsers.PureVms;
 using Project.ENTITIES.Models;
 using System.Diagnostics;
@@ -111,24 +115,29 @@ namespace Project.COREMVC.Controllers
             {
                 ReturnUrl = returnUrl
             };
-            return View(usModel);
+
+            UserSignInPageVM usPageVM = new()
+            {
+                 UserSignInRequestModel = usModel
+            };
+            return View(usPageVM);
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignIn(UserSignInRequestModel model)
+        public async Task<IActionResult> SignIn(UserSignInRequestModel UserSignInRequestModel)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    AppUser appUser = await _userManager.FindByNameAsync(model.UserName);
+                    AppUser appUser = await _userManager.FindByNameAsync(UserSignInRequestModel.UserName);
 
-                    SignInResult result = await _signInManager.PasswordSignInAsync(appUser, model.Password, model.RememberMe, true);
+                    SignInResult result = await _signInManager.PasswordSignInAsync(appUser, UserSignInRequestModel.Password, UserSignInRequestModel.RememberMe, true);
                     if (result.Succeeded)
                     {
-                        if (!string.IsNullOrWhiteSpace(model.ReturnUrl))
+                        if (!string.IsNullOrWhiteSpace(UserSignInRequestModel.ReturnUrl))
                         {
-                            return Redirect(model.ReturnUrl);
+                            return Redirect(UserSignInRequestModel.ReturnUrl);
                         }
 
                         IList<string> roles = await _userManager.GetRolesAsync(appUser);
@@ -172,7 +181,7 @@ namespace Project.COREMVC.Controllers
                 }
                 
             }
-            return View(model);
+            return View();
         }
         public IActionResult MailPanel()
         {
@@ -194,7 +203,78 @@ namespace Project.COREMVC.Controllers
         public async Task<IActionResult> SignOut()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Signin");
+        }
+        
+        public async Task<IActionResult> IforgotPassword(UserSignInPageVM model)
+        {
+            AppUser appUser = await _userManager.FindByEmailAsync(model.Email);
+
+            if (appUser != null)
+            {
+                Guid token = Guid.NewGuid();
+                appUser.ActivationCode = token;
+                await _userManager.UpdateAsync(appUser);
+
+                string body = $"Þifre Yenileme için  http://localhost:5014/Home/ResetPassword?token={token}&id={appUser.Id} linkine týklayýnýz";
+
+                MailService.Send(model.Email, body: body);
+                TempData["Message"] = "Mailinizi kontrol ediniz";
+                return RedirectToAction("SignIn");
+            }
+            else
+            {
+                TempData["Message"] = "Bu Maile Ait Kullanýcý Bulunamadý";
+                return RedirectToAction("SignIn");
+            }
+        }
+
+
+        
+        public async Task<IActionResult> ResetPassword(int id , Guid token)
+        {
+            AppUser user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null)
+            {
+                TempData["Message"] = "Kullanýcý bulunamadý";
+                return RedirectToAction("SignIn");
+            }
+            else if (user.ActivationCode == token)
+            {
+                return View();
+            }
+            TempData["Message"] = "Þifre sýfýrlama iþlemi baþarýsýz oldu. Lütfen daha sonra tekrar deneyin.";
+            return RedirectToAction("Signin");
+        }
+
+        [IgnoreAntiforgeryToken]
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(UserPasswordPureVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser user = await _userManager.FindByIdAsync(model.id.ToString());
+
+
+                IdentityResult result1 = await _userManager.RemovePasswordAsync(user);
+                IdentityResult result = await _userManager.AddPasswordAsync(user, model.newPassword);
+
+                if (result.Succeeded)
+                {
+                    // Þifre sýfýrlama iþlemi baþarýlý olduysa
+                    TempData["Message"] = "Þifreniz baþarýyla sýfýrlandý.";
+                    return RedirectToAction("SignIn"); // Kullanýcýyý giriþ sayfasýna yönlendir
+                }
+                else
+                {
+                    foreach (IdentityError error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                    return View();
+                }
+            }
+            return View();
         }
     }
 }

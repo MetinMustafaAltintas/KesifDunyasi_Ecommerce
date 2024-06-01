@@ -74,6 +74,8 @@
 	 *        "bSort": false 
 	 *      } );
 	 *    } );
+	 * 
+	 * 
 	 */
 	var DataTable = function( oInit )
 	{

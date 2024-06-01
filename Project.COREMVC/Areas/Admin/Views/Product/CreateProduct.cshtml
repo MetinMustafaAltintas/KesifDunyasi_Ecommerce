@@ -5,12 +5,12 @@
 
     <div class="mb-3">
         <label>Ürün İsmini giriniz</label>
-        <input asp-for="Product.ProductName" class="form-control" />
+        <input asp-for="Product.ProductName" asp-area="admin" class="form-control" />
     </div>
 
     <div class="mb-3">
         <label>Fiyat giriniz</label>
-        <input asp-for="Product.UnitPrice" class="form-control" />
+        <input asp-for="Product.Unitprice" class="form-control" />
 
 
     </div>
@@ -33,10 +33,13 @@
         <input type="file" name="formFile" class="form-control" />
     </div>
 
-
+    <br />
     <div class="mb-3">
         <button class="btn btn-primary">Ürün Ekle</button>
     </div>
 
+
+    <div class="text-danger" asp-validation-summary="ModelOnly">
+    </div>
 
 </form>

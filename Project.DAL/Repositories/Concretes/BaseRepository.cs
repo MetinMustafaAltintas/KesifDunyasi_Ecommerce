@@ -86,7 +86,7 @@ namespace Project.DAL.Repositories.Concretes
             Save();
         }
 
-        public async Task<T> FindAsync(int id)
+        public virtual async Task<T> FindAsync(int id)
         {
             return await _db.Set<T>().FindAsync(id);
         }
@@ -151,7 +151,7 @@ namespace Project.DAL.Repositories.Concretes
 
         }
 
-        public async Task UpdateAsync(T item)
+        public virtual async Task UpdateAsync(T item)
         {
             item.ModifiedDate = DateTime.Now;
             item.Status = ENTITIES.Enums.DataStatus.Updated;
@@ -170,7 +170,13 @@ namespace Project.DAL.Repositories.Concretes
             return _db.Set<T>().Where(exp).ToList();
         }
 
-
+        public virtual void Updated(T item, T originalEntity)
+        {
+            item.ModifiedDate = DateTime.Now;
+            item.Status = ENTITIES.Enums.DataStatus.Updated;
+            _db.Entry(originalEntity).CurrentValues.SetValues(item);
+            Save();
+        }
     }
 }
 

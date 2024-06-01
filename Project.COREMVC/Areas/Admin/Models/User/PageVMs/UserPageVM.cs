@@ -4,6 +4,6 @@ namespace Project.COREMVC.Areas.Admin.Models.User.PageVMs
 {
     public class UserPageVM
     {
-        public List<UserVM> UserVMs { get; set; }
+        public List<GetUserVM> UserVMs { get; set; }
     }
 }

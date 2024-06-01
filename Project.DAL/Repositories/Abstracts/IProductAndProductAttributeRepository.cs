@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Project.DAL.Repositories.Abstracts
 {
-    public interface IProductAndProductAttributeRepository:IRepository<ProductAndProductAttribute>
+    public interface IProductAndProductAttributeRepository : IRepository<ProductAndProductAttribute>
     {
+        
     }
 }

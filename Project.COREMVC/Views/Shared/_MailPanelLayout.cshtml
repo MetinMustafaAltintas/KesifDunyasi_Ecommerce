@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>Lütfen E-Mailinizi Onaylayınız</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/OuterTools/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/OuterTools/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="~/OuterTools/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/OuterTools/css/style.css" rel="stylesheet">
+    <link href="~/OuterTools/css/style-responsive.css" rel="stylesheet" />
+
+
+    <style>
+        .icon-envelope {
+            font-size: 125px; /* İkonun boyutunu büyütmek için */
+            /* color: #333; İkonun rengini değiştirmek için (isteğe bağlı) */
+        }
+    </style>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="body-404">
+
+    <div class="container">
+
+        <section class="error-wrapper text-center">
+            <i class="icon-envelope"></i>
+            <br /><br /><br /><br /><br />
+            @RenderBody()
+            <h1>Lütfen E-Mailinizi Onaylayınız</h1>
+            <br />
+            <p class="page-404"><a asp-action="Signin">Ana Sayfaya Dön</a></p>
+        </section>
+
+    </div>
+
+</body>
+</html>

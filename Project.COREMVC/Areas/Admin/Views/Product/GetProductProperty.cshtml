@@ -1,0 +1,74 @@
+﻿@model GetProductDetailPageVM
+
+<h1>
+    <span class="text-danger">@TempData["Message"]</span>
+</h1>
+<div class="row">
+    <div class="col-lg-6">
+        <section class="panel">
+            <header class="panel-heading">
+                Özellikler Tablosu
+            </header>
+            <div class="panel-body">
+                <div class="adv-table">
+                    <table class="display table table-bordered table-striped " id="attributesTable">
+                        <thead>
+                            <tr>
+                                <th>Attribute ID</th>
+                                <th>Attribute ismi</th>
+                                <th>Güncelle</th>
+                                <th>Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (ProductAttributePureVM item in Model.ProductAttributePureVM)
+                            {
+                                <tr style="font-weight:bold">
+                                    <td>@item.AttributeID</td>
+                                    <td>@item.AttributeName</td>
+                                    <td><a asp-action="UpdateAttribute" asp-route-id="@item.AttributeID" class="btn btn-primary ">Güncelle</a></td>
+                                    <td><a asp-action="DeleteAttribute" asp-route-id="@item.AttributeID" class="btn btn-danger ">Sil</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-6">
+        <section class="panel">
+            <header class="panel-heading">
+                Değer Tablosu
+            </header>
+            <div class="panel-body">
+                <div class="adv-table">
+                    <table class="display table table-bordered table-striped" id="valuesTable">
+                        <thead>
+                            <tr>
+                                <th>Product ID</th>
+                                <th>Attribute ID</th>
+                                <th>Değeri</th>
+                                <th>Güncelle</th>
+                                <th>Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (ProductValuesPureVM item in Model.ProductValuesPureVM)
+                            {
+                                <tr style="font-weight:bold">
+                                    <td>@item.ProductID</td>
+                                    <td>@item.AttributeID</td>
+                                    <td>@item.Values</td>
+                                    <td><a asp-action="UpdateValue" asp-route-ProductID="@item.ProductID" asp-route-AttributeID="@item.AttributeID" asp-controller="Product" class="btn btn-primary ">Güncelle</a></td>
+                                    <td><a asp-action="DeleteValue" asp-route-ProductID="@item.ProductID" asp-route-AttributeID="@item.AttributeID" asp-controller="Product" class="btn btn-danger ">Sil</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

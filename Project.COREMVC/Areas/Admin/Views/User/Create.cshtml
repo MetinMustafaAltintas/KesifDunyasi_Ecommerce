@@ -1,0 +1,23 @@
+﻿@model CreateUserPageVM
+
+<form asp-controller="User" asp-action="Create" method="post" class="p-3 w-75 m-auto">
+    <div class="mb-3">
+        <label>Kullanıcı ismini giriniz</label>
+        <span class="text-danger" asp-validation-for="CreateUserRequestModel.UserName"></span>
+        <input asp-for="CreateUserRequestModel.UserName" class="form-control" placeholder="Kullanıcı Ismi" />
+    </div>
+
+    <div class="mb-3">
+        <label>Kullanıcı Emailini giriniz</label>
+        <span class="text-danger" asp-validation-for="CreateUserRequestModel.Email"></span>
+        <input asp-for="CreateUserRequestModel.Email" class="form-control" type="email" placeholder="Email" />
+    </div>
+    <br />
+    <div class="mb-3">
+        <button class="btn btn-primary">Kullanıcı Ekle</button>
+    </div>
+
+    <div class="text-danger" asp-validation-summary="ModelOnly">
+    </div>
+</form>
+

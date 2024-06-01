@@ -18,8 +18,6 @@ namespace Project.BLL.Managers.Concretes
         //Bu class Repository ile birlikte calısmak istiyor
         protected readonly IRepository<T> _iRep;
 
-        public IProductAndProductAttributeManager PPARep { get; }
-
         public BaseManager(IRepository<T> iRep) //BUrada dikkat ederseniz BaseManager constructor'i bir Parametre alıyor (IRepository<T> tipinde) IOC(Inversion of Controls) paternine göre burada belirtilen tip Middleware'de görülürse bize instance'i alınabilecek bir şey gönderilir...Bizim istedigimiz IRepository<T> generic tipi algılandıgı anda BaseRepository instance'i gönderilecektir...Bu yüzdendir ki BaseRepository'i Abstract yapmadık...
         {
             _iRep = iRep;
@@ -86,10 +84,6 @@ namespace Project.BLL.Managers.Concretes
 
         public void Delete(T item)
         {
-            if (item.CreatedDate == default)
-            {
-                return;
-            }
             _iRep.Delete(item);
         }
 
@@ -98,7 +92,7 @@ namespace Project.BLL.Managers.Concretes
             _iRep.DeleteRange(list);
         }
 
-        public string Destroy(T item)
+        public virtual string Destroy(T item)
         {
             if (item.Status == ENTITIES.Enums.DataStatus.Deleted)
             {
@@ -117,7 +111,7 @@ namespace Project.BLL.Managers.Concretes
             return "Silme işleminde bir sorunla karsılasıldı lütfen veri durumunun pasif oldugundan emin olunuz";
         }
 
-        public async Task<T> FindAsync(int id)
+        public virtual async Task<T> FindAsync(int id)
         {
 
             return await _iRep.FindAsync(id);
@@ -206,6 +200,11 @@ namespace Project.BLL.Managers.Concretes
 
             foreach (T item in list) metinler.Add(Destroy(item));
             return metinler;
+        }
+
+        public void Updated(T item, T originalEntity)
+        {
+             _iRep.Updated(item, originalEntity);
         }
     }
 }

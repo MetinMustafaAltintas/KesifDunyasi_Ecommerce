@@ -1,0 +1,20 @@
+﻿@model UpdateValuePageVM
+
+<form asp-action="UpdateValue" asp-controller="Product" method="post" class="p-3 w-75 m-auto">
+
+    <input type="hidden" asp-for="UpdateValuePureVM.ProductID" />
+    <input type="hidden" asp-for="UpdateValuePureVM.AttributeID" />
+    <div class="mb-3">
+        <label>Attribute İsmini giriniz</label>
+        <input asp-for="UpdateValuePureVM.ValueName" class="form-control" />
+    </div>
+
+    <br />
+    <div class="mb-3">
+        <button class="btn btn-primary">Value Güncelle</button>
+    </div>
+
+    <div class="text-danger" asp-validation-summary="ModelOnly">
+    </div>
+
+</form>

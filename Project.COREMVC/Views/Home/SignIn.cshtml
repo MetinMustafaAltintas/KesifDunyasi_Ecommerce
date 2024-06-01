@@ -1,4 +1,4 @@
-﻿@model UserSignInRequestModel
+﻿@model UserSignInPageVM
 @{
 
     Layout = "~/Views/Shared/_UserloginLayout.cshtml";
@@ -14,17 +14,17 @@
     }
 
     <form asp-action="SignIn" asp-controller="Home" method="post" class="form-signin">
-    <input type="hidden" asp-for="ReturnUrl" />
+        <input type="hidden" asp-for="UserSignInRequestModel.ReturnUrl" />
     <h2 class="form-signin-heading">Giriş Yap</h2>
     <div class="login-wrap">
 
-        <span class="text-danger" asp-validation-for="UserName"></span>
-        <input asp-for="UserName" type="text" class="form-control" placeholder="Kullanıcı Adı">
+            <span class="text-danger" asp-validation-for="UserSignInRequestModel.UserName"></span>
+            <input asp-for="UserSignInRequestModel.UserName" type="text" class="form-control" placeholder="Kullanıcı Adı">
 
-        <span class="text-danger" asp-validation-for="Password"></span>
-        <input asp-for="Password" type="password" class="form-control" placeholder="Şifre">
+            <span class="text-danger" asp-validation-for="UserSignInRequestModel.Password"></span>
+            <input asp-for="UserSignInRequestModel.Password" type="password" class="form-control" placeholder="Şifre">
 
-        <input type="checkbox" asp-for="RememberMe" class="form-check-input" />
+            <input type="checkbox" asp-for="UserSignInRequestModel.RememberMe" class="form-check-input" />
             <label class="form-check-label">Beni Hatırla?  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span class="pull-right">
                 <a data-toggle="modal" href="#myModal">
@@ -45,29 +45,38 @@
         <div class="text-danger" asp-validation-summary="ModelOnly">
         </div>
 
+       
+
+
+</form>
+    <form asp-action="IforgotPassword" asp-controller="Home" method="post">
     <!-- Modal -->
     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Forgot Password ?</h4>
+                    <h4 class="modal-title">Şifremi Unuttum</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Enter your e-mail address below to reset your password.</p>
-                    <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+                    <p>Şifrenizi sıfırlamak için e-posta adresinizi girin.</p>
+                
 
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="E-mail">
                 </div>
                 <div class="modal-footer">
-                    <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-                    <button class="btn btn-success" type="button">Submit</button>
+                    <button data-dismiss="modal" class="btn btn-default" type="button">İptal</button>
+                    <button class="btn btn-success" type="submit">Gönder</button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- modal -->
 
-</form>
+    <!-- modal -->
+        <div class="text-danger" asp-validation-summary="ModelOnly">
+        </div>
+    </form>
 </center>
 
  <script>

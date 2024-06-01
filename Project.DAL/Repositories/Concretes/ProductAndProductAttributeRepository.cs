@@ -1,4 +1,6 @@
-﻿using Project.DAL.ContextClasses;
+﻿using Bogus.Bson;
+using Microsoft.EntityFrameworkCore;
+using Project.DAL.ContextClasses;
 using Project.DAL.Repositories.Abstracts;
 using Project.ENTITIES.Models;
 using System;
@@ -14,5 +16,8 @@ namespace Project.DAL.Repositories.Concretes
         public ProductAndProductAttributeRepository(MyContext db) : base(db)
         {
         }
+
+       
+
     }
 }

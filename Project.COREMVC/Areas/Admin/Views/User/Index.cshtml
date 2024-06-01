@@ -1,7 +1,7 @@
 ﻿@model UserPageVM
-@{
-    Layout = "~/Areas/Admin/Views/Shared/_UserLayout.cshtml";
-}
+<h1>
+    <span class="text-danger">@TempData["Message"]</span>
+</h1>
 <!-- page start-->
 <div class="row">
     <div class="col-lg-12">
@@ -18,16 +18,20 @@
                                 <th>Email Adresi</th>
                                 <th>Rolleri</th>
                                 <th>Rol Ata</th>
+                                <th>Mail Güncelle</th>
+                                <th>Kullanıcı Sil</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (UserVM item in Model.UserVMs)
+                            @foreach (GetUserVM item in Model.UserVMs)
                             {
                                 <tr style="font-weight:bold">
                                     <td>@item.UserName</td>
                                     <td>@item.Email</td>
                                     <td> <getUserInfo user-id="item.Id"></getUserInfo></td>
                                     <td><a asp-action="AssignRole" asp-route-id="@item.Id" class="btn btn-info "><i class="icon-refresh"></i> Rol Ata</a></td>
+                                    <td><a asp-action="UpdateUser" asp-route-id="@item.Id" class="btn btn-primary ">Mail Güncelle</a></td>
+                                    <td><a asp-action="DeleteUser" asp-route-id="@item.Id" class="btn btn-danger ">Sil</a></td>
                                 </tr>
                             }
                         </tbody>
@@ -37,11 +41,14 @@
                                 <th>Email Adresi</th>
                                 <th>Rolleri</th>
                                 <th>Rol Ata</th>
+                                <th>Mail Güncelle</th>
+                                <th>Kullanıcı Sil</th>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
             </div>
+            <a asp-action="Create" asp-controller="User" class="btn btn-success" style="position:relative; bottom: 10px; left: 90%;">Yeni kullanıcı ekle</a>
         </section>
     </div>
 </div>

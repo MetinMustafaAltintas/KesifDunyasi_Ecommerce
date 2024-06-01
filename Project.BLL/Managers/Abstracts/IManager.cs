@@ -54,7 +54,7 @@ namespace Project.BLL.Managers.Abstracts
         List<T> GetLastDatas(int count);
         List<T> GetFirstDatas(int count);
 
-
+        void Updated(T item, T originalEntity);
 
     }
 }

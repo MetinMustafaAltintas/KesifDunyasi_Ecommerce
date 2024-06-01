@@ -48,5 +48,7 @@ namespace Project.DAL.Repositories.Abstracts
         List<T> GetLastDatas(int count);
         List<T> GetFirstDatas(int count);
 
+        void Updated(T item, T originalEntity);
+
     }
 }

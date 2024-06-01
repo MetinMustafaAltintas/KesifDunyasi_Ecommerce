@@ -21,6 +21,7 @@ namespace Project.BLL.ServiceInjections
                 x.Password.RequireUppercase = true; // büyük harf gerekli olsun mu demektir
                 x.Password.RequireLowercase = true; // küçük harf gerekli olsun mu demektir
                 x.SignIn.RequireConfirmedEmail = true;
+                x.User.RequireUniqueEmail = true;
                 x.Password.RequireNonAlphanumeric = true; // numeric karakterler var zorunlu olsun mu demektir
                 x.Lockout.MaxFailedAccessAttempts = 5; // 5 denemeden sonra kullanıcı yanlış giriyor ise hesabı kitlensin mi demektir
                 x.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // eğer hesab kitlenirse kaç dk kitlesin demektir

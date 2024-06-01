@@ -16,5 +16,12 @@ namespace Project.BLL.Managers.Concretes
         {
             _pPARep = pPARep;
         }
+        public override string Destroy(ProductAndProductAttribute item)
+        {
+            _pPARep.Destroy(item);
+            return "Veri basarıyla yok edildi";
+        }
+
+
     }
 }
