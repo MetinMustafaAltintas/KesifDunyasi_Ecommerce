@@ -1,4 +1,5 @@
 ﻿using Project.BLL.Managers.Abstracts;
+using Project.BLL.ServiceInjections;
 using Project.DAL.Repositories.Abstracts;
 using Project.ENTITIES.Models;
 using System;
@@ -15,6 +16,22 @@ namespace Project.BLL.Managers.Concretes
         public CategoryManager(ICategoryRepository catRep) : base(catRep)
         {
             _catRep = catRep;
+        }
+
+        public override string Add(Category item)
+        {
+            item.CategoryName = item.CategoryName.ToTitleCase();
+            return base.Add(item);
+        }
+        public override Task AddAsync(Category item)
+        {
+            item.CategoryName = item.CategoryName.ToTitleCase();
+            return base.AddAsync(item);
+        }
+        public override Task UpdateAsync(Category item)
+        {
+            item.CategoryName = item.CategoryName.ToTitleCase();
+            return base.UpdateAsync(item);
         }
     }
 }

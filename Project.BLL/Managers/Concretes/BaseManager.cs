@@ -39,8 +39,9 @@ namespace Project.BLL.Managers.Concretes
 
         }
 
-        public async Task AddAsync(T item)
+        public virtual async Task AddAsync(T item)
         {
+            
             SaatEkle(item);
             await _iRep.AddAsync(item);
         }
@@ -173,7 +174,7 @@ namespace Project.BLL.Managers.Concretes
             return _iRep.Select(exp);
         }
 
-        public async Task UpdateAsync(T item)
+        public virtual async Task UpdateAsync(T item)
         {
             await _iRep.UpdateAsync(item);
         }
@@ -202,7 +203,7 @@ namespace Project.BLL.Managers.Concretes
             return metinler;
         }
 
-        public void Updated(T item, T originalEntity)
+        public virtual void Updated(T item, T originalEntity)
         {
              _iRep.Updated(item, originalEntity);
         }

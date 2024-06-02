@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Query.Internal;
 using Project.BLL.Managers.Abstracts;
+using Project.BLL.ServiceInjections;
 using Project.DAL.Repositories.Abstracts;
 using Project.ENTITIES.Models;
 using System;
@@ -16,6 +17,22 @@ namespace Project.BLL.Managers.Concretes
         public AppRoleManager(IAppRoleRepository aarep) : base(aarep)
         {
             _arrep = aarep;
+        }
+
+        public override string Add(AppRole item)
+        {
+            item.Name = item.Name.ToTitleCase();
+            return base.Add(item);
+        }
+        public override Task AddAsync(AppRole item)
+        {
+            item.Name = item.Name.ToTitleCase();
+            return base.AddAsync(item);
+        }
+        public override Task UpdateAsync(AppRole item)
+        {
+            item.Name = item.Name.ToTitleCase();
+            return base.UpdateAsync(item);
         }
     }
 }

@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\Category\PageVMs\" />
     <Folder Include="Areas\Admin\Models\ProductAndProductAttribute\PageVMs\" />
     <Folder Include="wwwroot\OuterTools\assets\jquery-file-upload\server\php\files\thumbnail\" />
   </ItemGroup>

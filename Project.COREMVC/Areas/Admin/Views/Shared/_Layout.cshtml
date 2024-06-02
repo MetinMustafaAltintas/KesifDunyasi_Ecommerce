@@ -48,7 +48,7 @@
                 <!--search & user info start-->
                 <ul class="nav pull-right top-menu">
                     <li>
-                        <a asp-controller="Shopping" asp-action="CartPage"><i class="icon-shopping-cart"></i> Sepet</a>
+                        <a asp-controller="Shopping" asp-action="CartPage" asp-area=""><i class="icon-shopping-cart"></i> Sepet</a>
                     </li>
                     <!-- user login dropdown start-->
                     @if (User.Identity.IsAuthenticated)
@@ -116,7 +116,7 @@
                         </a>
                         <ul class="sub">
                             <li><a asp-action="index" asp-area="Admin" asp-controller="Category">Kategoriler Listesi</a></li>
-                            <li><a asp-action="Create" asp-area="Admin" asp-controller="Category">Kategori Ekle</a></li>
+                            <li><a asp-action="CreateCategory" asp-area="Admin" asp-controller="Category">Kategori Ekle</a></li>
                         </ul>
                     </li>
 

@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Project.BLL.Managers.Abstracts;
+using Project.COREMVC.Areas.Admin.Models.Category.PageVMs;
+using Project.COREMVC.Areas.Admin.Models.Category.PureVMs;
+using Project.COREMVC.Areas.Admin.Models.Products.PureVMs;
 using Project.ENTITIES.Models;
 
 namespace Project.COREMVC.Areas.Admin.Controllers
@@ -15,9 +18,22 @@ namespace Project.COREMVC.Areas.Admin.Controllers
             _categoryManager = categoryManager;
         }
 
-        public IActionResult Index()
+        public  IActionResult Index()
         {
-            return View(_categoryManager.GetAll());
+            List<Category> categories =  _categoryManager.GetAll();
+
+            List<GetCategoryPureVM> gCvm = categories.Select(gCvm => new GetCategoryPureVM
+            {
+                ID = gCvm.ID,
+                Description = gCvm.Description,
+                CategoryName = gCvm.CategoryName,
+                Status = gCvm.Status
+            }).ToList();
+
+            GetCategoryPageVM getCategory = new GetCategoryPageVM();
+            getCategory.GetCategoryPureVMs = gCvm;
+
+            return View(getCategory);
         }
 
         public IActionResult CreateCategory()
@@ -28,9 +44,12 @@ namespace Project.COREMVC.Areas.Admin.Controllers
         //Normal şartlarda Domain Entity ile calısmamanız gerekir...BUrada bir CreateCategoryRequestModel gereklidir...
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory(Category model)
+        public async Task<IActionResult> CreateCategory(CreateCategoryPageVM model)
         {
-            await _categoryManager.AddAsync(model);
+            Category category = new Category();
+            category.CategoryName = model.CreateCategoryPureVM.CategoryName;
+            category.Description= model.CreateCategoryPureVM.Description;
+            await _categoryManager.AddAsync(category);
             return RedirectToAction("Index");
         }
 
@@ -48,13 +67,24 @@ namespace Project.COREMVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> UpdateCategory(int id)
         {
-            return View(await _categoryManager.FindAsync(id));
+            Category category = await _categoryManager.FindAsync(id);
+            UpdateCategoryPureVM  updateCategoryPureVM = new UpdateCategoryPureVM();
+            updateCategoryPureVM.ID = category.ID;
+            updateCategoryPureVM.CategoryName= category.CategoryName;
+            updateCategoryPureVM.Description= category.Description;
+            UpdateCategoryPageVM updateCategoryPageVM = new UpdateCategoryPageVM();
+            updateCategoryPageVM.UpdateCategoryPureVM= updateCategoryPureVM;
+            return View(updateCategoryPageVM);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateCategory(Category model)
+        public async Task<IActionResult> UpdateCategory(UpdateCategoryPageVM model)
         {
-            await _categoryManager.UpdateAsync(model);
+            Category category = new Category();
+            category.ID = model.UpdateCategoryPureVM.ID;
+            category.CategoryName = model.UpdateCategoryPureVM.CategoryName;
+            category.Description = model.UpdateCategoryPureVM.Description;
+            await _categoryManager.UpdateAsync(category);
             return RedirectToAction("Index");
         }
     }

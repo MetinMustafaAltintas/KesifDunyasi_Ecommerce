@@ -16,5 +16,7 @@ namespace Project.BLL.Managers.Concretes
         {
             _Aurrep = aurrep;
         }
+
+   
     }
 }

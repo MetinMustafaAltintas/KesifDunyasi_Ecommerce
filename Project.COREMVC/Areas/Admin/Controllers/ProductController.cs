@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Project.BLL.Managers.Abstracts;
 using Project.BLL.Managers.Concretes;
+using Project.BLL.ServiceInjections;
 using Project.COREMVC.Areas.Admin.Models.AppRoles.PureVMs;
 using Project.COREMVC.Areas.Admin.Models.Category.PureVMs;
 using Project.COREMVC.Areas.Admin.Models.ProductAndProductAttribute.PureVMs;
@@ -239,9 +240,31 @@ namespace Project.COREMVC.Areas.Admin.Controllers
             Product product = await _productManager.FindAsync(model.AttributeValueVM.ID);
             if (product != null)
             {
+                List<ProductAttribute> attributes = await _productAttributeManager.GetActivesAsync();
+
                 ProductAttribute productAttribute = new ProductAttribute();
                 productAttribute.AttributeName = model.AttributeValueVM.AttributeName;
-                _productAttributeManager.Add(productAttribute);
+                productAttribute.AttributeName = productAttribute.AttributeName.ToTitleCase();
+                int eskiID = productAttribute.ID;
+                foreach (ProductAttribute item in attributes)
+                {
+                    if (item.AttributeName == productAttribute.AttributeName)
+                    {
+                        productAttribute.ID= item.ID;
+                        break;
+                    }
+                }
+                if (eskiID == productAttribute.ID)
+                {
+                    _productAttributeManager.Add(productAttribute);
+                }
+                ProductAndProductAttribute ayniozellikvarmi = _productAndProductAttributeManager.Where(x => x.ProductID == product.ID && x.ProductAttributeID == productAttribute.ID).FirstOrDefault();
+
+                if (ayniozellikvarmi != null)
+                {
+                    TempData["Message"] = $"{product.ProductName} isimli üründe {productAttribute.AttributeName} özelliği bulunuyor";
+                    return RedirectToAction("ProductProperty", new { id = model.AttributeValueVM.ID });
+                }
 
                 ProductAndProductAttribute pAppa = new ProductAndProductAttribute();
                 pAppa.ProductID = product.ID;

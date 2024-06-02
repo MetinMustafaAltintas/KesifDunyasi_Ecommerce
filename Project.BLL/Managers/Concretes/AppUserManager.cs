@@ -1,4 +1,5 @@
 ﻿using Project.BLL.Managers.Abstracts;
+using Project.BLL.ServiceInjections;
 using Project.DAL.Repositories.Abstracts;
 using Project.ENTITIES.Models;
 using System;
@@ -19,6 +20,21 @@ namespace Project.BLL.Managers.Concretes
         public async Task<bool> AddUser(AppUser user)
         {
             return await _appRep.AddUser(user);
+        }
+        public override string Add(AppUser item)
+        {
+            item.UserName = item.UserName.ToTitleCase();
+            return base.Add(item);
+        }
+        public override Task UpdateAsync(AppUser item)
+        {
+            item.UserName = item.UserName.ToTitleCase();
+            return base.UpdateAsync(item);
+        }
+        public override Task AddAsync(AppUser item)
+        {
+            item.UserName = item.UserName.ToTitleCase();
+            return base.AddAsync(item);
         }
     }
 }

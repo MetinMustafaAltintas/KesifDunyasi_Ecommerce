@@ -1,4 +1,5 @@
 ﻿using Project.BLL.Managers.Abstracts;
+using Project.BLL.ServiceInjections;
 using Project.DAL.Repositories.Abstracts;
 using Project.ENTITIES.Models;
 using System;
@@ -21,6 +22,21 @@ namespace Project.BLL.Managers.Concretes
         {
             List<Product> products = _pRep.Where(x => x.UnitsInStock > 5);
             return products;
+        }
+        public override string Add(Product item)
+        {
+            item.ProductName = item.ProductName.ToTitleCase();
+            return base.Add(item);
+        }
+        public override Task AddAsync(Product item)
+        {
+            item.ProductName = item.ProductName.ToTitleCase();
+            return base.AddAsync(item);
+        }
+        public override Task UpdateAsync(Product item)
+        {
+            item.ProductName = item.ProductName.ToTitleCase();
+            return base.UpdateAsync(item);
         }
     }
 }
