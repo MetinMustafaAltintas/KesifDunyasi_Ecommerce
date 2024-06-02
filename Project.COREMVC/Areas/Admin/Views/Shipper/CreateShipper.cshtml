@@ -1,0 +1,17 @@
+﻿@model CreateShipperPageVM
+
+<form asp-controller="Shipper" asp-action="CreateShipper" method="post" class="p-3 w-75 m-auto">
+    <div class="mb-3">
+        <label>Firma ismini giriniz</label>
+        <span class="text-danger" asp-validation-for="CreateShipperPureVM.CompanyName"></span>
+        <input asp-for="CreateShipperPureVM.CompanyName" class="form-control" placeholder="Firma Ismi" />
+    </div>
+    <br />
+    <div class="mb-3">
+        <button class="btn btn-primary">Firma Ekle</button>
+    </div>
+
+    <div class="text-danger" asp-validation-summary="ModelOnly">
+    </div>
+</form>
+

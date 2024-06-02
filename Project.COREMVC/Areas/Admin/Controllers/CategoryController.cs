@@ -80,11 +80,16 @@ namespace Project.COREMVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateCategory(UpdateCategoryPageVM model)
         {
-            Category category = new Category();
-            category.ID = model.UpdateCategoryPureVM.ID;
-            category.CategoryName = model.UpdateCategoryPureVM.CategoryName;
-            category.Description = model.UpdateCategoryPureVM.Description;
-            await _categoryManager.UpdateAsync(category);
+            if (ModelState.IsValid)
+            {
+                Category category = new Category();
+                category.ID = model.UpdateCategoryPureVM.ID;
+                category.CategoryName = model.UpdateCategoryPureVM.CategoryName;
+                category.Description = model.UpdateCategoryPureVM.Description;
+                await _categoryManager.UpdateAsync(category);
+                TempData["Message"] = $"{category.CategoryName} verisi güncellendi";
+                return RedirectToAction("Index");
+            }
             return RedirectToAction("Index");
         }
     }

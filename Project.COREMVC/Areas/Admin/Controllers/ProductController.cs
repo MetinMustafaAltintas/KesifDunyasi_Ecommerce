@@ -36,7 +36,7 @@ namespace Project.COREMVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<Product> productlist = await _productManager.GetActivesAsync();
+            List<Product> productlist =  _productManager.GetAll();
 
             List<GetProductPureVM> pPvm = productlist.Select(pPvm => new GetProductPureVM
             {

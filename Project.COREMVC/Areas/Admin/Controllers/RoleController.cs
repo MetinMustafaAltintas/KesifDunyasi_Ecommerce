@@ -39,7 +39,7 @@ namespace Project.COREMVC.Areas.Admin.Controllers
         }
 
         
-        public async Task<IActionResult> RoleCreate(AppRolePageVM model)
+        public async Task<IActionResult> Role(AppRolePageVM model)
         {
             if (ModelState.IsValid)
             {

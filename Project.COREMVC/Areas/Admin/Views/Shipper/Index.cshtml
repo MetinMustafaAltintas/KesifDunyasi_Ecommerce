@@ -1,0 +1,44 @@
+﻿@model GetShipperPageVM
+
+<h1>
+    <span class="text-danger">@TempData["Message"]</span>
+</h1>
+
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Shipper Tablosu
+            </header>
+            <div class="panel-body">
+                <div class="adv-table">
+                    <table class="display table table-bordered table-striped" id="example">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Shipper Ismi</th>
+                                <th class="hidden-phone">Durumu</th>
+                                <th class="hidden-phone">Guncelle</th>
+                                <th class="hidden-phone">Pasife Al</th>
+                                <th class="hidden-phone">Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (GetShipperPureVM item in Model.GetShipperPureVMs)
+                            {
+                                <tr class="gradeX">
+                                    <td>@item.ID</td>
+                                    <td>@item.CompanyName</td>
+                                    <td class="center hidden-phone">@item.Status</td>
+                                    <td class="center hidden-phone"><a asp-action="UpdateShipper" asp-route-id="@item.ID" class="btn btn-warning">Güncelle</a></td>
+                                    <td class="center hidden-phone"><a asp-action="PassiveShipper" asp-route-id="@item.ID" class="btn btn-info">Pasife Al</a></td>
+                                    <td class="center hidden-phone"><a asp-action="DeleteShipper" asp-route-id="@item.ID" class="btn btn-danger">Sil</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
