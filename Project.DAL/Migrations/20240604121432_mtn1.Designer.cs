@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project.DAL.ContextClasses;
 
@@ -11,9 +12,11 @@ using Project.DAL.ContextClasses;
 namespace Project.DAL.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20240604121432_mtn1")]
+    partial class mtn1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,8 +161,8 @@ namespace Project.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "710c05a3-1990-448d-a86f-b31fcc1102e7",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(4215),
+                            ConcurrencyStamp = "19506cf5-2c5d-45fa-87ee-3886a93c86e0",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(6413),
                             Name = "Admin",
                             NormalizedName = "ADMIN",
                             Status = 1
@@ -253,16 +256,16 @@ namespace Project.DAL.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d097b2a4-89a2-4a1e-a2fa-968793eb04b1",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(4447),
+                            ConcurrencyStamp = "13ea3109-7428-4c12-a41f-6b0024a58928",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(7077),
                             Email = "metinmustafaaltintas@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "METINMUSTAFAALTINTAS@GMAIL.COM",
                             NormalizedUserName = "METIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE3czHFswzi9O2XddQOtmAvvXxJPAyDyOG7s41zt3IZ2pqU3BD+zrGvPQDMdb7Bcqg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELIyq7oUVuFBhO6m+OtOoS7P1DGZWeRI7oxEAVDygdpUoKKwobPCDoXZL0hJAVfXwg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6124cb3c-14a9-4fc5-930b-2319375d7693",
+                            SecurityStamp = "56c4875c-2767-44f7-ac4f-04b8bd6f2a26",
                             Status = 1,
                             TwoFactorEnabled = false,
                             UserName = "metin"
@@ -277,16 +280,16 @@ namespace Project.DAL.Migrations
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Ctiy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
@@ -296,6 +299,7 @@ namespace Project.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImagePath")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
@@ -348,7 +352,7 @@ namespace Project.DAL.Migrations
                         {
                             UserId = 1,
                             RoleId = 1,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 534, DateTimeKind.Local).AddTicks(8105),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 519, DateTimeKind.Local).AddTicks(684),
                             Status = 1
                         });
                 });
@@ -389,81 +393,81 @@ namespace Project.DAL.Migrations
                         new
                         {
                             ID = 1,
-                            CategoryName = "Automotive",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(1173),
-                            Description = "Quae fugit quia adipisci eum consequatur açılmadan lakin ullam sed.",
+                            CategoryName = "Garden",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(1595),
+                            Description = "Sit ki veritatis quis incidunt yaptı quis teldeki tv bundan.",
                             Status = 1
                         },
                         new
                         {
                             ID = 2,
-                            CategoryName = "Shoes",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(1657),
-                            Description = "Eos kutusu tempora sunt non gitti quam quaerat mi deleniti.",
+                            CategoryName = "Clothing",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(2239),
+                            Description = "Exercitationem velit orta dicta perferendis inventore yapacakmış ex yapacakmış cesurca.",
                             Status = 1
                         },
                         new
                         {
                             ID = 3,
-                            CategoryName = "Shoes",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(1746),
-                            Description = "Olduğu dergi sevindi ratione sevindi eius non voluptatem bundan et.",
+                            CategoryName = "Toys",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(2353),
+                            Description = "İnventore quia çünkü ut exercitationem sıradanlıktan dicta bahar nisi alias.",
                             Status = 1
                         },
                         new
                         {
                             ID = 4,
-                            CategoryName = "Tools",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(1820),
-                            Description = "Consequatur voluptate mi alias makinesi masanın türemiş tempora totam ama.",
+                            CategoryName = "Automotive",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(2424),
+                            Description = "Çünkü ut otobüs enim sıradanlıktan sit odit sevindi quia suscipit.",
                             Status = 1
                         },
                         new
                         {
                             ID = 5,
-                            CategoryName = "Music",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(1907),
-                            Description = "İusto sequi quaerat gitti kutusu aliquam oldular sıfat consectetur aliquid.",
+                            CategoryName = "Grocery",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(2500),
+                            Description = "Adanaya patlıcan reprehenderit çorba adresini corporis bilgisayarı mi bahar makinesi.",
                             Status = 1
                         },
                         new
                         {
                             ID = 6,
-                            CategoryName = "Outdoors",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(1983),
-                            Description = "Voluptas filmini sıla in ea adanaya kulu voluptatem ipsa lakin.",
+                            CategoryName = "Grocery",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(2577),
+                            Description = "Aperiam nisi camisi sandalye cesurca sıla ut kutusu quia incidunt.",
                             Status = 1
                         },
                         new
                         {
                             ID = 7,
                             CategoryName = "Outdoors",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(2054),
-                            Description = "Tempora nemo consequatur reprehenderit corporis şafak masanın için qui exercitationem.",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(2859),
+                            Description = "Ama consequatur sevindi sandalye totam un ona lakin türemiş aut.",
                             Status = 1
                         },
                         new
                         {
                             ID = 8,
-                            CategoryName = "Movies",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(2123),
-                            Description = "Adanaya esse yapacakmış gül doloremque quam et nemo magni olduğu.",
+                            CategoryName = "Outdoors",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(2936),
+                            Description = "Layıkıyla nemo consequuntur umut patlıcan aut ut nesciunt dolor şafak.",
                             Status = 1
                         },
                         new
                         {
                             ID = 9,
-                            CategoryName = "Health",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(2201),
-                            Description = "Umut sit quia yaptı quia masanın sit sed koyun velit.",
+                            CategoryName = "Kids",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(3194),
+                            Description = "Eve lakin minima iusto değerli illo sed sed gitti gül.",
                             Status = 1
                         },
                         new
                         {
                             ID = 10,
-                            CategoryName = "Kids",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(2271),
-                            Description = "Ea otobüs velit eos aliquid enim laboriosam koşuyorlar otobüs dolor.",
+                            CategoryName = "Music",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(3632),
+                            Description = "Açılmadan sayfası çobanın sevindi voluptatem vel rem esse çıktılar blanditiis.",
                             Status = 1
                         });
                 });
@@ -599,110 +603,110 @@ namespace Project.DAL.Migrations
                         {
                             ID = 1,
                             CategoryID = 1,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(2426),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(3883),
                             ImagePath = "http://lorempixel.com/640/480/nightlife",
-                            ProductName = "Intelligent Cotton Keyboard",
+                            ProductName = "Sleek Fresh Salad",
                             Status = 1,
-                            UnitPrice = 611.85m,
+                            UnitPrice = 350.05m,
                             UnitsInStock = 100
                         },
                         new
                         {
                             ID = 2,
                             CategoryID = 2,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(2846),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(4231),
                             ImagePath = "http://lorempixel.com/640/480/nightlife",
-                            ProductName = "Ergonomic Steel Computer",
+                            ProductName = "Practical Frozen Computer",
                             Status = 1,
-                            UnitPrice = 28.64m,
+                            UnitPrice = 34.71m,
                             UnitsInStock = 100
                         },
                         new
                         {
                             ID = 3,
                             CategoryID = 3,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(2955),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(4331),
                             ImagePath = "http://lorempixel.com/640/480/nightlife",
-                            ProductName = "Unbranded Metal Car",
+                            ProductName = "Unbranded Wooden Towels",
                             Status = 1,
-                            UnitPrice = 510.43m,
+                            UnitPrice = 117.65m,
                             UnitsInStock = 100
                         },
                         new
                         {
                             ID = 4,
                             CategoryID = 4,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3043),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(4417),
                             ImagePath = "http://lorempixel.com/640/480/nightlife",
-                            ProductName = "Ergonomic Cotton Keyboard",
+                            ProductName = "Handmade Rubber Car",
                             Status = 1,
-                            UnitPrice = 353.12m,
+                            UnitPrice = 755.16m,
                             UnitsInStock = 100
                         },
                         new
                         {
                             ID = 5,
                             CategoryID = 5,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3123),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(4688),
                             ImagePath = "http://lorempixel.com/640/480/nightlife",
-                            ProductName = "Gorgeous Granite Bacon",
+                            ProductName = "Tasty Concrete Car",
                             Status = 1,
-                            UnitPrice = 23.38m,
+                            UnitPrice = 186.67m,
                             UnitsInStock = 100
                         },
                         new
                         {
                             ID = 6,
                             CategoryID = 6,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3204),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(4974),
                             ImagePath = "http://lorempixel.com/640/480/nightlife",
-                            ProductName = "Handmade Wooden Computer",
+                            ProductName = "Generic Wooden Pants",
                             Status = 1,
-                            UnitPrice = 95.08m,
+                            UnitPrice = 58.40m,
                             UnitsInStock = 100
                         },
                         new
                         {
                             ID = 7,
                             CategoryID = 7,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3294),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(5057),
                             ImagePath = "http://lorempixel.com/640/480/nightlife",
-                            ProductName = "Intelligent Rubber Chair",
+                            ProductName = "Gorgeous Rubber Cheese",
                             Status = 1,
-                            UnitPrice = 259.87m,
+                            UnitPrice = 684.12m,
                             UnitsInStock = 100
                         },
                         new
                         {
                             ID = 8,
                             CategoryID = 8,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3375),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(5138),
                             ImagePath = "http://lorempixel.com/640/480/nightlife",
-                            ProductName = "Fantastic Fresh Shoes",
+                            ProductName = "Tasty Plastic Chips",
                             Status = 1,
-                            UnitPrice = 224.60m,
+                            UnitPrice = 436.03m,
                             UnitsInStock = 100
                         },
                         new
                         {
                             ID = 9,
                             CategoryID = 9,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3455),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(5220),
                             ImagePath = "http://lorempixel.com/640/480/nightlife",
-                            ProductName = "Awesome Metal Table",
+                            ProductName = "Sleek Metal Keyboard",
                             Status = 1,
-                            UnitPrice = 746.32m,
+                            UnitPrice = 96.38m,
                             UnitsInStock = 100
                         },
                         new
                         {
                             ID = 10,
                             CategoryID = 10,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3539),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(5313),
                             ImagePath = "http://lorempixel.com/640/480/nightlife",
-                            ProductName = "Generic Fresh Shirt",
+                            ProductName = "Awesome Soft Soap",
                             Status = 1,
-                            UnitPrice = 776.43m,
+                            UnitPrice = 946.23m,
                             UnitsInStock = 100
                         });
                 });
@@ -742,23 +746,23 @@ namespace Project.DAL.Migrations
                         {
                             ProductAttributeID = 1,
                             ProductID = 1,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3959),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(6149),
                             Status = 1,
-                            Value = "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J"
+                            Value = "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive"
                         },
                         new
                         {
                             ProductAttributeID = 2,
                             ProductID = 2,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3990),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(6180),
                             Status = 1,
-                            Value = "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients"
+                            Value = "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J"
                         },
                         new
                         {
                             ProductAttributeID = 3,
                             ProductID = 3,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(4012),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(6203),
                             Status = 1,
                             Value = "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"
                         },
@@ -766,57 +770,57 @@ namespace Project.DAL.Migrations
                         {
                             ProductAttributeID = 4,
                             ProductID = 4,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(4031),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(6223),
                             Status = 1,
-                            Value = "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive"
+                            Value = "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support"
                         },
                         new
                         {
                             ProductAttributeID = 5,
                             ProductID = 5,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(4057),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(6243),
                             Status = 1,
-                            Value = "The Football Is Good For Training And Recreational Purposes"
+                            Value = "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients"
                         },
                         new
                         {
                             ProductAttributeID = 6,
                             ProductID = 6,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(4078),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(6265),
                             Status = 1,
-                            Value = "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals"
+                            Value = "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart"
                         },
                         new
                         {
                             ProductAttributeID = 7,
                             ProductID = 7,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(4097),
-                            Status = 1,
-                            Value = "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive"
-                        },
-                        new
-                        {
-                            ProductAttributeID = 8,
-                            ProductID = 8,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(4116),
-                            Status = 1,
-                            Value = "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit"
-                        },
-                        new
-                        {
-                            ProductAttributeID = 9,
-                            ProductID = 9,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(4135),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(6285),
                             Status = 1,
                             Value = "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"
                         },
                         new
                         {
+                            ProductAttributeID = 8,
+                            ProductID = 8,
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(6304),
+                            Status = 1,
+                            Value = "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive"
+                        },
+                        new
+                        {
+                            ProductAttributeID = 9,
+                            ProductID = 9,
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(6323),
+                            Status = 1,
+                            Value = "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design"
+                        },
+                        new
+                        {
                             ProductAttributeID = 10,
                             ProductID = 10,
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(4155),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(6343),
                             Status = 1,
-                            Value = "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals"
+                            Value = "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support"
                         });
                 });
 
@@ -852,71 +856,71 @@ namespace Project.DAL.Migrations
                         new
                         {
                             ID = 1,
-                            AttributeName = "Fresh",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3688),
+                            AttributeName = "Wooden",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(5471),
                             Status = 1
                         },
                         new
                         {
                             ID = 2,
-                            AttributeName = "Fresh",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3732),
+                            AttributeName = "Rubber",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(5718),
                             Status = 1
                         },
                         new
                         {
                             ID = 3,
-                            AttributeName = "Granite",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3754),
+                            AttributeName = "Fresh",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(5741),
                             Status = 1
                         },
                         new
                         {
                             ID = 4,
                             AttributeName = "Steel",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3774),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(5763),
                             Status = 1
                         },
                         new
                         {
                             ID = 5,
                             AttributeName = "Granite",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3795),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(5783),
                             Status = 1
                         },
                         new
                         {
                             ID = 6,
                             AttributeName = "Soft",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3816),
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(5805),
                             Status = 1
                         },
                         new
                         {
                             ID = 7,
-                            AttributeName = "Steel",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3836),
+                            AttributeName = "Rubber",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(5826),
                             Status = 1
                         },
                         new
                         {
                             ID = 8,
-                            AttributeName = "Metal",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3856),
+                            AttributeName = "Rubber",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(5846),
                             Status = 1
                         },
                         new
                         {
                             ID = 9,
-                            AttributeName = "Wooden",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3875),
+                            AttributeName = "Frozen",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(5866),
                             Status = 1
                         },
                         new
                         {
                             ID = 10,
-                            AttributeName = "Steel",
-                            CreatedDate = new DateTime(2024, 6, 4, 23, 25, 54, 431, DateTimeKind.Local).AddTicks(3896),
+                            AttributeName = "Concrete",
+                            CreatedDate = new DateTime(2024, 6, 4, 15, 14, 31, 421, DateTimeKind.Local).AddTicks(5896),
                             Status = 1
                         });
                 });

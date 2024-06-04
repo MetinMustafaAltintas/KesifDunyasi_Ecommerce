@@ -1,0 +1,64 @@
+﻿@model UpdateProfilePageVM
+
+<aside class="profile-info col-lg-9">
+    <section class="panel">
+        <div class="panel-body bio-graph-info">
+            <h1> Profil Bilgileri</h1>
+            <form asp-action="UpdateProfile" asp-controller="Profile" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+                <input type="hidden" asp-for="UpdateProfilePureVM.ID">
+                <input type="hidden" asp-for="UpdateProfilePureVM.ImagePath" />
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">İsim</label>
+                    <div class="col-lg-6">
+                        <input asp-for="UpdateProfilePureVM.FirstName" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Soyisim</label>
+                    <div class="col-lg-6">
+                        <input asp-for="UpdateProfilePureVM.LastName" type=" text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Ülke</label>
+                    <div class="col-lg-6">
+                        <input asp-for="UpdateProfilePureVM.Country" type="text" class="form-control" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Şehir</label>
+                    <div class="col-lg-6">
+                        <input asp-for="UpdateProfilePureVM.City" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Doğum Tarihi</label>
+                    <div class="col-lg-6">
+                        <input asp-for="UpdateProfilePureVM.Birthday" type="date" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Telefon</label>
+                    <div class="col-lg-6">
+                        <input asp-for="UpdateProfilePureVM.Phone" type="tel" class="form-control" maxlength="11"/>
+                        <span asp-validation-for="UpdateProfilePureVM.Phone" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Profil Fotoğrafı</label>
+                    <div class="col-lg-6">
+                        <input type="file" name="formFile" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-success">Güncelle</button>
+                    </div>
+                </div>
+                <div class="text-danger" asp-validation-summary="ModelOnly">
+                </div>
+            </form>
+        </div>
+    </section>
+</aside>

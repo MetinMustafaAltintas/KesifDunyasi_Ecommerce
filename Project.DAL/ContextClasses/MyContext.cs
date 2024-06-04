@@ -39,6 +39,7 @@ namespace Project.DAL.ContextClasses
             ProductAttributeDataSeedExtension.SeedProductAttribute(builder);
             ProductAndProductAttributeDataSeedExtension.ProductAndProductAttribute(builder);
             UserRoleDataSeedExtension.SeedUsers(builder);
+            
         }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<AppRole> AppRoles { get; set; }

@@ -12,9 +12,8 @@
             </div>
 
             <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="profile.html"> <i class="icon-user"></i> Profile</a></li>
-                <li><a href="profile-activity.html"> <i class="icon-calendar"></i> Recent Activity <span class="label label-danger pull-right r-activity">9</span></a></li>
-                <li><a href="profile-edit.html"> <i class="icon-edit"></i> Edit profile</a></li>
+                <li class="active"><a asp-action="Index" asp-controller="Profile" asp-route-name="@User.Identity.Name"> <i class="icon-user"></i> Profile</a></li>
+                <li><a asp-action="UpdateProfile" asp-controller="Profile" asp-route-id="@Model.GetProfilePureVM.ID"> <i class="icon-edit"></i> Edit profile</a></li>
             </ul>
 
         </section>
@@ -34,10 +33,10 @@
                         <p><span>Country </span>: @Model.GetProfilePureVM.Country</p>
                     </div>
                     <div class="bio-row">
-                        <p><span>Birthday</span>: @Model.GetProfilePureVM.Birthday</p>
+                        <p><span>Birthday</span>: @Model.GetProfilePureVM.Birthday.ToString("dd.MM.yyyy")</p>
                     </div>
                     <div class="bio-row">
-                        <p><span>Ctiy </span>: @Model.GetProfilePureVM.Ctiy</p>
+                        <p><span>City </span>: @Model.GetProfilePureVM.City</p>
                     </div>
                     <div class="bio-row">
                         <p><span>Email </span>: @Model.GetProfilePureVM.Email</p>

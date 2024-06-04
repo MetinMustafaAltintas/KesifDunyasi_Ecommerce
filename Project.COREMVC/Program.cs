@@ -16,8 +16,8 @@ builder.Services.AddSession(x =>
     x.Cookie.IsEssential = true;
 });
 
-builder.Services.AddDbContextService(); //DbContextService'imizi BLL'den alarak middleware'e entegre ettik...
 builder.Services.AddIdentityServices();
+builder.Services.AddDbContextService(); //DbContextService'imizi BLL'den alarak middleware'e entegre ettik...
 
 builder.Services.AddCookieServices();
 

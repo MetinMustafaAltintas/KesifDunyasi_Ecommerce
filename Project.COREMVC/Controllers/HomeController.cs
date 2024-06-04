@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using NuGet.Common;
+using Project.BLL.Managers.Abstracts;
 using Project.COMMON.Tools;
 using Project.COREMVC.Areas.Admin.Models.User.PureVMs;
 using Project.COREMVC.Models;
@@ -23,13 +24,15 @@ namespace Project.COREMVC.Controllers
         readonly UserManager<AppUser> _userManager;
         readonly RoleManager<AppRole> _roleManager;
         readonly SignInManager<AppUser> _signInManager;
+        readonly IProfileManager _profile;
 
-        public HomeController(ILogger<HomeController> logger , UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, SignInManager<AppUser> signInManager)
+        public HomeController(ILogger<HomeController> logger , UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, SignInManager<AppUser> signInManager, IProfileManager profile)
         {
             _logger = logger;
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _profile = profile;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -132,9 +135,14 @@ namespace Project.COREMVC.Controllers
                 {
                     AppUser appUser = await _userManager.FindByNameAsync(UserSignInRequestModel.UserName);
 
+                    AppUserProfile appUserProfile = await _profile.FindAsync(appUser.Id);
                     SignInResult result = await _signInManager.PasswordSignInAsync(appUser, UserSignInRequestModel.Password, UserSignInRequestModel.RememberMe, true);
                     if (result.Succeeded)
                     {
+                        if (appUserProfile == null)
+                        {
+                            return RedirectToAction("CreateProfile", "Profile",new { id = appUser.Id });
+                        }
                         if (!string.IsNullOrWhiteSpace(UserSignInRequestModel.ReturnUrl))
                         {
                             return Redirect(UserSignInRequestModel.ReturnUrl);
@@ -143,7 +151,7 @@ namespace Project.COREMVC.Controllers
                         IList<string> roles = await _userManager.GetRolesAsync(appUser);
                         if (roles.Contains("Admin"))
                         {
-                            return RedirectToAction("Index", "Category", new { Area = "Admin" });
+                            return RedirectToAction("CreateProfile", "Home", new { Area = "Admin" });
                         }
                         else if (roles.Contains("Member"))
                         {

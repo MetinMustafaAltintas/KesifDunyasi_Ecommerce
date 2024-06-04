@@ -186,7 +186,6 @@ namespace Project.COREMVC.Areas.Admin.Controllers
                 product.UnitsInStock = UpdateProductPageVM.Product.UnitsInStock;
                 product.CategoryID = UpdateProductPageVM.Product.CategoryID;
                 product.ImagePath = UpdateProductPageVM.Product.ImagePath;
-                product.Status = ENTITIES.Enums.DataStatus.Updated;
                 await _productManager.UpdateAsync(product);
                 TempData["Message"] = $"{product.ProductName} Ürün Güncellendi";
                 return RedirectToAction("Index");

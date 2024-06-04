@@ -1,0 +1,63 @@
+﻿@model CreateProfilePageVM
+
+
+<aside class="profile-info col-lg-9">
+    <section class="panel">
+        <div class="panel-body bio-graph-info">
+            <h1> Profil Bilgileri</h1>
+            <form asp-action="CreateProfile" asp-controller="Profile" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+                <input type="hidden" asp-for="CreateProfilePureVM.ID">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">İsim</label>
+                    <div class="col-lg-6">
+                        <input asp-for="CreateProfilePureVM.FirstName" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Soyisim</label>
+                    <div class="col-lg-6">
+                        <input asp-for="CreateProfilePureVM.LastName" type=" text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Ülke</label>
+                    <div class="col-lg-6">
+                        <input asp-for="CreateProfilePureVM.Country" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Şehir</label>
+                    <div class="col-lg-6">
+                        <input asp-for="CreateProfilePureVM.City" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Doğum Tarihi</label>
+                    <div class="col-lg-6">
+                        <input asp-for="CreateProfilePureVM.Birthday" type="date" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Telefon</label>
+                    <div class="col-lg-6">
+                        <input asp-for=CreateProfilePureVM.Phone type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Profil Fotoğrafı</label>
+                    <div class="col-lg-6">
+                        <input type="file" name="formFile" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-success">Kaydet</button>
+                    </div>
+                </div>
+                <div class="text-danger" asp-validation-summary="ModelOnly">
+                </div>
+            </form>
+        </div>
+    </section>
+</aside>
