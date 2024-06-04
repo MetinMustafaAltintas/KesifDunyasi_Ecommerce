@@ -1,0 +1,52 @@
+﻿@model GetProfilePageVM
+<!-- page start-->
+<div class="row">
+    <aside class="profile-nav col-lg-3">
+        <section class="panel">
+            <div class="user-heading round">
+                <a>
+                    <img src="@Model.GetProfilePureVM.ImagePath">
+                </a>
+                <h1>@Model.GetProfilePureVM.FirstName @Model.GetProfilePureVM.LastName</h1>
+                <p>@Model.GetProfilePureVM.Email</p>
+            </div>
+
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="profile.html"> <i class="icon-user"></i> Profile</a></li>
+                <li><a href="profile-activity.html"> <i class="icon-calendar"></i> Recent Activity <span class="label label-danger pull-right r-activity">9</span></a></li>
+                <li><a href="profile-edit.html"> <i class="icon-edit"></i> Edit profile</a></li>
+            </ul>
+
+        </section>
+    </aside>
+    <aside class="profile-info col-lg-9">
+        <section class="panel">
+            <div class="panel-body bio-graph-info">
+                <h1>Profil</h1>
+                <div class="row">
+                    <div class="bio-row">
+                        <p><span>First Name </span>: @Model.GetProfilePureVM.FirstName</p>
+                    </div>
+                    <div class="bio-row">
+                        <p><span>Last Name </span>: @Model.GetProfilePureVM.LastName</p>
+                    </div>
+                    <div class="bio-row">
+                        <p><span>Country </span>: @Model.GetProfilePureVM.Country</p>
+                    </div>
+                    <div class="bio-row">
+                        <p><span>Birthday</span>: @Model.GetProfilePureVM.Birthday</p>
+                    </div>
+                    <div class="bio-row">
+                        <p><span>Ctiy </span>: @Model.GetProfilePureVM.Ctiy</p>
+                    </div>
+                    <div class="bio-row">
+                        <p><span>Email </span>: @Model.GetProfilePureVM.Email</p>
+                    </div>
+                    <div class="bio-row">
+                        <p><span>Phone </span>: @Model.GetProfilePureVM.Phone</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!-- page end-->

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Project.ENTITIES.Models
+﻿namespace Project.COREMVC.Models.Profile.PureVMs
 {
-    public class AppUserProfile : BaseEntity
+    public class GetProfilePureVM
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -15,9 +9,6 @@ namespace Project.ENTITIES.Models
         public string Country { get; set; }
         public string Ctiy { get; set; }
         public string Phone { get; set; }
-
-        //Relational Properties
-        public virtual AppUser AppUser { get; set; }
-
+        public string Email { get; set; }
     }
 }

@@ -1,8 +1,5 @@
-﻿@model GetHomePureVM
+﻿@model GetHomePageVM
 
-<!--main content start-->
-<section id="main-content">
-    <section class="wrapper">
         <!--state overview start-->
         <div class="row state-overview">
             <div class="col-lg-3 col-sm-6">
@@ -12,9 +9,9 @@
                     </div>
                     <div class="value">
                         <h1 class="count">
-                            @Model.KullaniciSayisi
+                            @Model.GetHomePureVM.KullaniciSayisi
                         </h1>
-                        <p>Toplam Kullanıcı Sayısı</p>
+                        <p>Kullanıcılar</p>
                     </div>
                 </section>
             </div>
@@ -25,9 +22,9 @@
                     </div>
                     <div class="value">
                         <h1 class=" count2">
-                            0
+                            @Model.GetHomePureVM.UrunSayisi
                         </h1>
-                        <p>Sales</p>
+                        <p>Satılan Ürün Sayısı</p>
                     </div>
                 </section>
             </div>
@@ -38,9 +35,9 @@
                     </div>
                     <div class="value">
                         <h1 class=" count3">
-                            0
+                    @Model.GetHomePureVM.SiparisSayisi
                         </h1>
-                        <p>New Order</p>
+                        <p>Siparişler</p>
                     </div>
                 </section>
             </div>
@@ -51,11 +48,97 @@
                     </div>
                     <div class="value">
                         <h1 class=" count4">
-                            0
+                    @Model.GetHomePureVM.ToplamTutar
                         </h1>
-                        <p>Total Profit</p>
+                        <p>Toplam Tutar</p>
                     </div>
                 </section>
             </div>
         </div>
         <!--state overview end-->
+        <br />
+<center><h1>@Model.GetHomePureVM.Tarih</h1></center>
+        
+<!--state overview start-->
+<div class="row state-overview">
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol terques">
+                <i class="icon-user"></i>
+            </div>
+            <div class="value">
+                <h1 class="count">
+                    @Model.GetHomePureVM.YeniKullanici
+                </h1>
+                <p>Yeni Kullanıcılar</p>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol red">
+                <i class="icon-tags"></i>
+            </div>
+            <div class="value">
+                <h1 class=" count2">
+                    @Model.GetHomePureVM.YeniUrunSayisi
+                </h1>
+                <p>Satılan Ürün Sayısı</p>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol yellow">
+                <i class="icon-shopping-cart"></i>
+            </div>
+            <div class="value">
+                <h1 class=" count3">
+                    @Model.GetHomePureVM.YeniSiparisSayisi
+                </h1>
+                <p>Yeni Siparişler</p>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+        <section class="panel">
+            <div class="symbol blue">
+                <i class="icon-bar-chart"></i>
+            </div>
+            <div class="value">
+                <h1 class=" count4">
+                    @Model.GetHomePureVM.GunlukToplamTutar
+                </h1>
+                <p>Toplam Tutar</p>
+            </div>
+        </section>
+    </div>
+</div>
+<!--state overview end-->
+
+<div class="row">
+    <div class="col-lg-8">
+        <!--custom chart start-->
+        <div class="border-head">
+            <h3>Satış Grafiği</h3>
+        </div>
+        <div class="custom-bar-chart">
+            <ul class="y-axis">
+                @for (int i = 5; i >= 0; i--)
+                {
+                    <li><span>@(i * Model.GetHomePureVM.MaxSatisMiktari/5)</span></li>
+                }
+            </ul>
+            @foreach (AylikSatisPureVM aySatis in Model.aylikSatisPureVMs)
+            {
+                int barHeight = (aySatis.SatisMiktari * 100) / Model.GetHomePureVM.MaxSatisMiktari;
+
+                <div class="bar">
+                    <div class="title">@aySatis.AyAdi</div>
+                    <div class="value tooltips" data-original-title="@barHeight%" data-toggle="tooltip" data-placement="top">@barHeight%</div>
+                </div>
+            }
+        </div>
+        <!--custom chart end-->
+    </div>
+</div>
