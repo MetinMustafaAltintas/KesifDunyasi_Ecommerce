@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Project.BLL.Managers.Abstracts;
 using Project.COMMON.Tools;
 using Project.COREMVC.Areas.Admin.Models.AppRoles.PageVMs;
 using Project.COREMVC.Areas.Admin.Models.AppRoles.PureVMs;
@@ -18,16 +19,18 @@ namespace Project.COREMVC.Areas.Admin.Controllers
     {
         readonly UserManager<AppUser> _userManager;
         readonly RoleManager<AppRole> _roleManager;
+        
 
-        public UserController(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
+        public UserController(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager )
         {
             _userManager = userManager;
             _roleManager = roleManager;
         }
-        public IActionResult Index()
+        public  async Task<IActionResult> Index()
         {
-            List<AppUser> nonAdminUsers = _userManager.Users.Where(x => !x.UserRoles.Any(x => x.Role.Name == "Admin")).ToList();
-            List<GetUserVM> userVms = nonAdminUsers.Select(user => new GetUserVM
+            List<AppUser> nonAdminUsers = await _userManager.Users.Where(x => !x.UserRoles.Any(x => x.Role.Name == "Admin")).ToListAsync();
+
+            List <GetUserVM> userVms = nonAdminUsers.Select(user => new GetUserVM
             {
                 Id = user.Id,
                 UserName = user.UserName,
@@ -169,8 +172,8 @@ namespace Project.COREMVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> DeleteUser(string id)
         {
-            AppUser appUser = await _userManager.FindByIdAsync(id);
-            _userManager.DeleteAsync(appUser);
+           AppUser appUser = await _userManager.FindByIdAsync(id);
+           await _userManager.DeleteAsync(appUser);
             return RedirectToAction("Index");
         }
     }

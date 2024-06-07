@@ -1,4 +1,11 @@
 ﻿@model GetProfilePageVM
+
+@if (TempData["Message"] != null)
+{
+            <h1 class="alert alert-danger">
+                <b>@TempData["Message"]!</b>
+            </h1>
+}
 <!-- page start-->
 <div class="row">
     <aside class="profile-nav col-lg-3">
@@ -21,7 +28,7 @@
     <aside class="profile-info col-lg-9">
         <section class="panel">
             <div class="panel-body bio-graph-info">
-                <h1>Profil</h1>
+                <h1>Profil Bilgileri</h1>
                 <div class="row">
                     <div class="bio-row">
                         <p><span>First Name </span>: @Model.GetProfilePureVM.FirstName</p>
@@ -47,5 +54,4 @@
                 </div>
             </div>
         </section>
-
 <!-- page end-->

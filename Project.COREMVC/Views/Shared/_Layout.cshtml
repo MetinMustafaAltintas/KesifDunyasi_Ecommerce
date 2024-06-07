@@ -39,7 +39,8 @@
                 <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
             </div>
             <!--logo start-->
-            <a class="logo">Keşif<span>Dünyası</span></a>
+            <a class="logo" asp-action="Index" asp-controller="Shopping" asp-area="">Keşif<span>Dünyası</span></a>
+            <a  asp-action="Index" asp-controller="Shopping" asp-area="">AnaSayfa</a>
             <!--logo end-->
             <div class="top-nav ">
                 <!--search & user info start-->
@@ -60,6 +61,7 @@
                             <ul class="dropdown-menu extended">
                                 <div class="log-arrow-up"></div>
                                 <li><a asp-action="index" asp-controller="Profile" asp-area="" asp-route-name="@User.Identity.Name"><i class="icon-user"></i> Profil</a></li>
+                                <li><a asp-action="index" asp-controller="Order" asp-area="" asp-route-name="@User.Identity.Name"><i class="icon-shopping-cart"></i> Siparişlerim</a></li>
                                 <li><a asp-action="Signout" asp-controller="Home" asp-area=""><i class="icon-key"></i> Çıkış Yap</a></li>
                             </ul>
                         </li>
@@ -77,61 +79,81 @@
         </header>
         <!--header end-->
         <!--sidebar start-->
-        <aside>
-            <div id="sidebar" class="nav-collapse ">
+        @if (User.IsInRole("Admin"))
+        {
+            <aside>
+                <div id="sidebar" class="nav-collapse ">
                 <!-- sidebar menu start-->
-                <ul class="sidebar-menu" id="nav-accordion">
-                    <li>
-                        <a href="index.html">
-                            <i class="icon-dashboard"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
+                        <ul class="sidebar-menu" id="nav-accordion">
+                        <li>
+                            <a asp-action="index" asp-area="Admin" asp-controller="Home"> <i class="icon-home"></i> AnaSayfa</a>
+                        </li>
+                        
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="icon-user"></i>
+                                <span>Kullanıcılar menüsü</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a asp-action="index" asp-area="Admin" asp-controller="User">Kullanıcılar Listesi</a></li>
+                                <li><a asp-action="Create" asp-area="Admin" asp-controller="User">Kullanıcı Ekle</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="icon-user"></i>
+                                <span>Roller Menüsü</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a asp-action="index" asp-area="Admin" asp-controller="Role">Roller Listesi</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="icon-book"></i>
+                                <span>Kategoriler Menüsü</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a asp-action="index" asp-area="Admin" asp-controller="Category">Kategoriler Listesi</a></li>
+                                <li><a asp-action="CreateCategory" asp-area="Admin" asp-controller="Category">Kategori Ekle</a></li>
+                            </ul>
+                        </li>
 
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="icon-user"></i>
-                            <span>Kullanıcılar menüsü</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a asp-action="index" asp-controller="User">Kullanıcılar Listesi</a></li>
-                            <li><a asp-action="Create"  asp-controller="User">Kullanıcı Ekle</a></li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="icon-cogs"></i>
+                                <span>Ürünler Menüsü</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a asp-action="index" asp-area="Admin" asp-controller="Product">Ürünler Listesi</a></li>
+                                <li><a asp-action="CreateProduct" asp-area="Admin" asp-controller="Product">Ürün Ekle</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="icon-truck"></i>
+                                <span>Gönderici Menüsü</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a asp-action="index" asp-area="Admin" asp-controller="Shipper">Gönderici Listesi</a></li>
+                                <li><a asp-action="CreateShipper" asp-area="Admin" asp-controller="Shipper">Gönderici Ekle</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="icon-shopping-cart"></i>
+                                <span>Sipariş Menüsü</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a asp-action="index" asp-area="Admin" asp-controller="Order">Sipariş Listesi</a></li>
+                            </ul>
+                        </li>
                         </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="icon-book"></i>
-                            <span>Roller Menüsü</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a asp-action="index"  asp-controller="Role">Roller Listesi</a></li>
-                        </ul>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="icon-book"></i>
-                            <span>Kategoriler Menüsü</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a asp-action="index"  asp-controller="Category">Kategoriler Listesi</a></li>
-                            <li><a asp-action="Create"  asp-controller="Category">Kategori Ekle</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="icon-cogs"></i>
-                            <span>Ürünler Menüsü</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a asp-action="index"  asp-controller="Product">Ürünler Listesi</a></li>
-                            <li><a asp-action="CreateProduct"  asp-controller="Product">Ürün Ekle</a></li>
-                        </ul>
-                    </li>
-                </ul>
                 <!-- sidebar menu end-->
             </div>
         </aside>
+                    }
+                
         <!--sidebar end-->
         <!--main content start-->
         <section id="main-content">
@@ -175,8 +197,20 @@
     <script src="~/OuterTools/js/easy-pie-chart.js"></script>
     <script src="~/OuterTools/js/count.js"></script>
 
-    <script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('#example').dataTable({
+                "aaSorting": [[4, "desc"]]
+            });
+        });
 
+        $(document).ready(function () {
+            // attributesTable için DataTable özelliklerini uygula
+            $('#attributesTable').DataTable();
+
+            // valuesTable için DataTable özelliklerini uygula
+            $('#valuesTable').DataTable();
+        });
         //owl carousel
 
         $(document).ready(function () {
@@ -196,6 +230,15 @@
             $('select.styled').customSelect();
         });
 
+        $(document).ready(function () {
+            // Belirli bir süre sonra uyarı kutularını kapat
+            window.setTimeout(function () {
+                $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                    $(this).remove();
+                });
+            }, 5000); // 5 saniye beklet
+
+        });
     </script>
 
     

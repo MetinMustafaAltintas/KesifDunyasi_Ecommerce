@@ -1,0 +1,56 @@
+﻿@model ListOrderPageVM
+
+@if (TempData["Message"] != null)
+{
+    <h1 class="alert alert-danger">
+        <b>@TempData["Message"]!</b>
+    </h1>
+}
+<!-- page start-->
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Ürünler Tablosu
+            </header>
+            <div class="panel-body">
+                <div class="adv-table">
+                    <table class="display table table-bordered table-striped" id="example">
+                        <thead>
+                            <tr>
+                                <th>İsim Soyisim</th>
+                                <th>Email</th>
+                                <th>Adres</th>
+                                <th>Siparis Tutarı</th>
+                                <th>Kargo Firması</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (ListOrderPureVM item in Model.ListOrderPureVMs)
+                            {
+                                <tr class="gradeX">
+                                    <td>@item.IsimSoyisim</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Adres</td>
+                                    <td>@item.SiparisTutari.ToString("C", new System.Globalization.CultureInfo("tr-TR"))</td>
+                                    <td>@item.KargoFirmasi</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>İsim Soyisim</th>
+                                <th>Email</th>
+                                <th>Adres</th>
+                                <th>Siparis Tutarı</th>
+                                <th>Kargo Firması</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

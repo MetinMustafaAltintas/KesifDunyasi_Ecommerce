@@ -1,13 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
-using NuGet.Common;
 using Project.BLL.Managers.Abstracts;
 using Project.COMMON.Tools;
-using Project.COREMVC.Areas.Admin.Models.User.PureVMs;
 using Project.COREMVC.Models;
-using Project.COREMVC.Models.AppUsers;
 using Project.COREMVC.Models.ViewModels.AppUsers.PageVms;
 using Project.COREMVC.Models.ViewModels.AppUsers.PureVms;
 using Project.ENTITIES.Models;
@@ -134,11 +130,10 @@ namespace Project.COREMVC.Controllers
                 try
                 {
                     AppUser appUser = await _userManager.FindByNameAsync(UserSignInRequestModel.UserName);
-
-                    AppUserProfile appUserProfile = await _profile.FindAsync(appUser.Id);
                     SignInResult result = await _signInManager.PasswordSignInAsync(appUser, UserSignInRequestModel.Password, UserSignInRequestModel.RememberMe, true);
                     if (result.Succeeded)
                     {
+                        AppUserProfile appUserProfile = await _profile.FindAsync(appUser.Id);
                         if (appUserProfile == null)
                         {
                             return RedirectToAction("CreateProfile", "Profile",new { id = appUser.Id });
@@ -151,7 +146,7 @@ namespace Project.COREMVC.Controllers
                         IList<string> roles = await _userManager.GetRolesAsync(appUser);
                         if (roles.Contains("Admin"))
                         {
-                            return RedirectToAction("CreateProfile", "Home", new { Area = "Admin" });
+                            return RedirectToAction("Index", "Home", new { Area = "Admin" });
                         }
                         else if (roles.Contains("Member"))
                         {

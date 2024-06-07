@@ -145,8 +145,7 @@ namespace Project.COREMVC.Controllers
                 AppUser appUser = await _userManager.FindByIdAsync(appUserProfile.ID.ToString());
                 return RedirectToAction("Index", new { name = appUser.UserName });
             }
-           
         }
-       
+
     }
 }

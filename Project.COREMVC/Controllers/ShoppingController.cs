@@ -106,6 +106,8 @@ namespace Project.COREMVC.Controllers
             return RedirectToAction("CartPage");
         }
 
+       
+
         void ControlCart(Cart c)
         {
             if (c.GetCartItems.Count == 0) HttpContext.Session.Remove("scart");

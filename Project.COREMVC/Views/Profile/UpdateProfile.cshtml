@@ -1,5 +1,22 @@
 ﻿@model UpdateProfilePageVM
 
+
+<aside class="profile-nav col-lg-3">
+    <section class="panel">
+        <div class="user-heading round">
+            <a>
+                <img src="@Model.UpdateProfilePureVM.ImagePath">
+            </a>
+            <h1>@Model.UpdateProfilePureVM.FirstName @Model.UpdateProfilePureVM.LastName</h1>
+        </div>
+
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a asp-action="Index" asp-controller="Profile" asp-route-name="@User.Identity.Name"> <i class="icon-user"></i> Profile</a></li>
+            <li><a asp-action="UpdateProfile" asp-controller="Profile" asp-route-id="@Model.UpdateProfilePureVM.ID"> <i class="icon-edit"></i> Edit profile</a></li>
+        </ul>
+
+    </section>
+</aside>
 <aside class="profile-info col-lg-9">
     <section class="panel">
         <div class="panel-body bio-graph-info">
@@ -10,30 +27,35 @@
                 <div class="form-group">
                     <label class="col-lg-2 control-label">İsim</label>
                     <div class="col-lg-6">
+                        <span class="text-danger" asp-validation-for="UpdateProfilePureVM.FirstName"></span>
                         <input asp-for="UpdateProfilePureVM.FirstName" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Soyisim</label>
                     <div class="col-lg-6">
+                        <span class="text-danger" asp-validation-for="UpdateProfilePureVM.LastName"></span>
                         <input asp-for="UpdateProfilePureVM.LastName" type=" text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Ülke</label>
                     <div class="col-lg-6">
+                        <span class="text-danger" asp-validation-for="UpdateProfilePureVM.Country"></span>
                         <input asp-for="UpdateProfilePureVM.Country" type="text" class="form-control" >
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Şehir</label>
                     <div class="col-lg-6">
+                        <span class="text-danger" asp-validation-for="UpdateProfilePureVM.City"></span>
                         <input asp-for="UpdateProfilePureVM.City" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Doğum Tarihi</label>
                     <div class="col-lg-6">
+                        <span class="text-danger" asp-validation-for="UpdateProfilePureVM.Birthday"></span>
                         <input asp-for="UpdateProfilePureVM.Birthday" type="date" class="form-control">
                     </div>
                 </div>
@@ -53,7 +75,9 @@
 
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
-                        <button type="submit" class="btn btn-success">Güncelle</button>
+                        <button type="submit" class="btn btn-success">Güncelle</button>  
+                        <a asp-action="UpdatePassword" asp-controller="User" asp-route-id="@Model.UpdateProfilePureVM.ID" class="btn btn-info">Şifre Güncelleme</a>   
+                        <a asp-action="ChangeEmail" asp-controller="User" class="btn btn-info">Mail Değiştirme</a>
                     </div>
                 </div>
                 <div class="text-danger" asp-validation-summary="ModelOnly">
@@ -62,3 +86,4 @@
         </div>
     </section>
 </aside>
+<

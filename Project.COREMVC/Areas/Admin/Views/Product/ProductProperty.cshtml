@@ -1,8 +1,11 @@
 ﻿@model ProductDetailPageVM
 
-<h1>
-    <span class="text-danger">@TempData["Message"]</span>
-</h1>
+@if (TempData["Message"] != null)
+{
+    <h1 class="alert alert-danger">
+        <b>@TempData["Message"]!</b>
+    </h1>
+}
 <!-- page start-->
 <div class="row">
     <div class="col-md-12">
