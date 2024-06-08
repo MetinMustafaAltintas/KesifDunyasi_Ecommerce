@@ -19,16 +19,14 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>İsim Soyisim</th>
                                 <th>Sipariş Adresi</th>
                                 <th>Email Adresi</th>
-                                <th>Sipariş Açıklaması</th>
                                 <th>Sipariş Tutarı</th>
                                 <th>Kullanıcının ID</th>
-                                <th>Göndirici Firma ID</th>
+                                <th>Göndirici Firma</th>
                                 <th class="hidden-phone">Durumu</th>
-                                <th class="hidden-phone">Guncelle</th>
-                                <th class="hidden-phone">Pasife Al</th>
-                                <th class="hidden-phone">Sil</th>
+                                <th class="hidden-phone">Sipariş Detayı</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,16 +34,14 @@
                             {
                                 <tr class="gradeX">
                                     <td>@item.ID</td>
+                                    <td>@item.NameDescription</td>
                                     <td>@item.ShippingAddress</td>
                                     <td>@item.Email</td>
-                                    <td>@item.NameDescription</td>
                                     <td>@item.PriceOfOrder</td>
                                     <td>@item.AppUserID</td>
-                                    <td>@item.ShipperID</td>
+                                    <td>@item.Shipper</td>
                                     <td class="center hidden-phone">@item.Status</td>
-                                    <td class="center hidden-phone"><a asp-action="UpdateShipper" asp-route-id="@item.ID" class="btn btn-warning">Güncelle</a></td>
-                                    <td class="center hidden-phone"><a asp-action="PassiveShipper" asp-route-id="@item.ID" class="btn btn-info">Pasife Al</a></td>
-                                    <td class="center hidden-phone"><a asp-action="DeleteShipper" asp-route-id="@item.ID" class="btn btn-danger">Sil</a></td>
+                                    <td class="center hidden-phone"><a asp-action="OrderDetail" asp-controller="OrderDetail" asp-area="Admin" asp-route-id="@item.ID" class="btn btn-info">Sipariş Detayı</a></td>
                                 </tr>
                             }
                         </tbody>

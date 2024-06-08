@@ -29,7 +29,7 @@ namespace Project.COREMVC.Areas.Admin.Controllers
                 NameDescription = o.NameDescription,
                 PriceOfOrder = o.PriceOfOrder,
                 AppUserID = o.AppUserID,
-                ShipperID = o.ShipperID,
+                Shipper = o.Shipper.CompanyName,
                 Status = o.Status
             }).ToList();
 

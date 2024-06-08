@@ -35,12 +35,15 @@
     <section id="container">
         <!--header start-->
         <header class="header white-bg">
+            @if (User.IsInRole("Admin"))
+        {
             <div class="sidebar-toggle-box">
                 <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
             </div>
+        }
             <!--logo start-->
             <a class="logo" asp-action="Index" asp-controller="Shopping" asp-area="">Keşif<span>Dünyası</span></a>
-            <a  asp-action="Index" asp-controller="Shopping" asp-area="">AnaSayfa</a>
+            <a class="logo" style="margin-left:20px;" asp-action="Index" asp-controller="Shopping" asp-area=""><i class="icon-home">AnaSayfa</i></a>
             <!--logo end-->
             <div class="top-nav ">
                 <!--search & user info start-->

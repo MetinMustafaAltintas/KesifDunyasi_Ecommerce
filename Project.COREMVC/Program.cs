@@ -14,6 +14,8 @@ builder.Services.AddSession(x =>
     x.IdleTimeout = TimeSpan.FromDays(1); //Projeyi kiþinin bos durma süresi eger 5 dakikalýk bir süre olursa Session bosa cýksýn
     x.Cookie.HttpOnly = true; //document.cookie'den ilgili bilginin gözlemlenmesi
     x.Cookie.IsEssential = true;
+    
+    
 });
 
 builder.Services.AddIdentityServices();

@@ -1,0 +1,43 @@
+﻿@model GetOrderDetailPageVM
+
+@if (TempData["Message"] != null)
+{
+    <h1 class="alert alert-danger">
+        <b>@TempData["Message"]!</b>
+    </h1>
+}
+<!-- page start-->
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Ürünler Tablosu
+            </header>
+            <div class="panel-body">
+                <div class="adv-table">
+                    <table class="display table table-bordered table-striped" id="example">
+                        <thead>
+                            <tr>
+                                <th>Ürün ismi</th>
+                                <th>Ürün Adedi</th>
+                                <th>Ürün Fiyatı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (GetOrderDetailPureVM item in Model.GetOrderDetailPureVMs)
+                            {
+                                <tr class="gradeX">
+                                    <td>@item.ProductName</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.UnitPrice</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

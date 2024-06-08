@@ -58,28 +58,46 @@ namespace Project.COREMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProfile(CreateProfilePageVM model , IFormFile formFile)
         {
-            Guid uniqueName = Guid.NewGuid();
-            string extension = Path.GetExtension(formFile.FileName);//dosyanın uzantısını ele gecirdik...
-            model.CreateProfilePureVM.ImagePath = $"/images/{uniqueName}{extension}";
+            if (formFile != null)
+            {
+                Guid uniqueName = Guid.NewGuid();
+                string extension = Path.GetExtension(formFile.FileName);//dosyanın uzantısını ele gecirdik...
+                model.CreateProfilePureVM.ImagePath = $"/images/{uniqueName}{extension}";
 
-            string path = $"{Directory.GetCurrentDirectory()}/wwwroot{model.CreateProfilePureVM.ImagePath}";
-            FileStream stream = new(path, FileMode.Create);
-            formFile.CopyTo(stream);
+                string path = $"{Directory.GetCurrentDirectory()}/wwwroot{model.CreateProfilePureVM.ImagePath}";
+                FileStream stream = new(path, FileMode.Create);
+                formFile.CopyTo(stream);
 
-            AppUserProfile appUserProfile = new AppUserProfile();
-            appUserProfile.ID = model.CreateProfilePureVM.ID;
-            appUserProfile.FirstName = model.CreateProfilePureVM.FirstName;
-            appUserProfile.LastName = model.CreateProfilePureVM.LastName;
-            appUserProfile.Country = model.CreateProfilePureVM.Country;
-            appUserProfile.City = model.CreateProfilePureVM.City;
-            appUserProfile.Birthday = model.CreateProfilePureVM.Birthday;
-            appUserProfile.ImagePath = model.CreateProfilePureVM.ImagePath;
-            appUserProfile.Phone = model.CreateProfilePureVM.Phone;
+                AppUserProfile appUserProfile = new AppUserProfile();
+                appUserProfile.ID = model.CreateProfilePureVM.ID;
+                appUserProfile.FirstName = model.CreateProfilePureVM.FirstName;
+                appUserProfile.LastName = model.CreateProfilePureVM.LastName;
+                appUserProfile.Country = model.CreateProfilePureVM.Country;
+                appUserProfile.City = model.CreateProfilePureVM.City;
+                appUserProfile.Birthday = model.CreateProfilePureVM.Birthday;
+                appUserProfile.ImagePath = model.CreateProfilePureVM.ImagePath;
+                appUserProfile.Phone = model.CreateProfilePureVM.Phone;
 
-            _profileManager.Add(appUserProfile);
-            AppUser appUser = await _userManager.FindByIdAsync(appUserProfile.ID.ToString());
-            return RedirectToAction("Index", new { name = appUser.UserName });
+                _profileManager.Add(appUserProfile);
+                AppUser appUser = await _userManager.FindByIdAsync(appUserProfile.ID.ToString());
+                return RedirectToAction("Index", new { name = appUser.UserName });
+            }
+            else
+            {
+                AppUserProfile appUserProfile = new AppUserProfile();
+                appUserProfile.ID = model.CreateProfilePureVM.ID;
+                appUserProfile.FirstName = model.CreateProfilePureVM.FirstName;
+                appUserProfile.LastName = model.CreateProfilePureVM.LastName;
+                appUserProfile.Country = model.CreateProfilePureVM.Country;
+                appUserProfile.City = model.CreateProfilePureVM.City;
+                appUserProfile.Birthday = model.CreateProfilePureVM.Birthday;
+                appUserProfile.ImagePath = model.CreateProfilePureVM.ImagePath;
+                appUserProfile.Phone = model.CreateProfilePureVM.Phone;
 
+                _profileManager.Add(appUserProfile);
+                AppUser appUser = await _userManager.FindByIdAsync(appUserProfile.ID.ToString());
+                return RedirectToAction("Index", new { name = appUser.UserName });
+            }
         }
 
         public async Task<IActionResult> UpdateProfile(int id)

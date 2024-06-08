@@ -2,6 +2,7 @@
 {
     public class ListOrderPureVM
     {
+        public int ID { get; set; }
         public string IsimSoyisim { get; set; }
         public string Email { get; set; }
         public string Adres { get; set; }

@@ -148,11 +148,10 @@ namespace Project.COREMVC.Controllers
                         {
                             return RedirectToAction("Index", "Home", new { Area = "Admin" });
                         }
-                        else if (roles.Contains("Member"))
+                        else
                         {
-                            return RedirectToAction("Privacy");
+                            return RedirectToAction("Index", "Shopping");
                         }
-                        return RedirectToAction("Panel");
                     }
                     else if (result.IsNotAllowed)
                     {

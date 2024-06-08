@@ -1,0 +1,32 @@
+﻿@model UpdateOrderPageVM
+
+@if (TempData["Message"] != null)
+{
+    <h1 class="alert alert-danger">
+        <b>@TempData["Message"]!</b>
+    </h1>
+}
+
+<section>
+    <div class="panel panel-primary">
+        <div class="panel-heading">  Mail Değiştirme</div>
+        <div class="panel-body">
+            <form asp-action="OrderChangeMail" asp-controller="Order" method="post" class="form-horizontal" role="form">
+                <input type="hidden" asp-for="UpdateOrderPureVM.ID">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Yeni Email</label>
+                    <div class="col-lg-6">
+                        <span class="text-danger" asp-validation-for="UpdateOrderPureVM.Email"></span>
+                        <input asp-for="UpdateOrderPureVM.Email" type="text" class="form-control" id="c-pwd">
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-info">Güncelle</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
