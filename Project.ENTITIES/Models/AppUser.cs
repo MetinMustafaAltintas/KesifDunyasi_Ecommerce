@@ -18,7 +18,7 @@ namespace Project.ENTITIES.Models
     {
         public AppUser()
         {
-            CreatedDate = DateTime.Now;
+            CreatedDate = DateTime.UtcNow;
             Status = DataStatus.Inserted;
         }
         public int ID { get; set; }

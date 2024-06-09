@@ -1,15 +1,12 @@
-﻿@model Cart
+﻿@model MyCartPageVM
 
 
 <div class="jumbotron">
-    Odemeniz gereken toplam tutar => @Model.TotalPrice ... Siparişi onaylamak icin lütfen <a asp-controller="Shopping" asp-action="ConfirmOrder"> tıklayınız </a>
+    Odemeniz gereken toplam tutar => @Model.CartItems.Sum(x => x.SubTotal) ... Siparişi onaylamak icin lütfen <a asp-controller="Shopping" asp-action="ConfirmOrder"> tıklayınız </a>
 </div>
 
-
 <div class="row product-list">
-
-
-    @foreach (CartItem item in Model.GetCartItems)
+    @foreach (CartItem item in Model.CartItems)
     {
         <div class="col-md-4">
             <section class="panel">

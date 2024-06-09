@@ -12,7 +12,7 @@ namespace Project.ENTITIES.Models
     {
         public BaseEntity()
         {
-            CreatedDate = DateTime.Now;
+            CreatedDate = DateTime.UtcNow;
             Status = DataStatus.Inserted;
         }
         public int ID { get; set; }

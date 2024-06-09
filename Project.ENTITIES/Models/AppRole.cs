@@ -14,7 +14,7 @@ namespace Project.ENTITIES.Models
         public AppRole()
         {
             Status = DataStatus.Inserted;
-            CreatedDate = DateTime.Now;
+            CreatedDate = DateTime.UtcNow;
         }
 
         public int ID { get; set; }

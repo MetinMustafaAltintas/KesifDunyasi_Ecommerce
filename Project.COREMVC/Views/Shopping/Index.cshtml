@@ -16,7 +16,7 @@
             </header>
             <div class="panel-body">
                 <ul class="nav prod-cat">
-                    @foreach (Category item in Model.Categories)
+                    @foreach (CategoryPureVM item in Model.CategoryPureVMs)
                     {
                         <li style="padding-top:30px">
                             <a asp-controller="Shopping" asp-action="Index" asp-route-categoryID="@item.ID">@item.CategoryName</a>
@@ -37,11 +37,11 @@
 
                         @if (TempData["catID"] != null)
                         {
-                            <li>@Html.PagedListPager(Model.Products, page => Url.Action("Index", new { page, categoryID = TempData["catID"] }))</li>
+                            <li>@Html.PagedListPager(Model.ProductPureVMs, page => Url.Action("Index", new { page, categoryID = TempData["catID"] }))</li>
                         }
                         else
                         {
-                            @Html.PagedListPager(Model.Products, page => Url.Action("Index", new { page }))
+                            @Html.PagedListPager(Model.ProductPureVMs, page => Url.Action("Index", new { page }))
                              
                         }
                     </ul>
@@ -52,7 +52,7 @@
         <div class="row product-list">
 
 
-            @foreach (Product item in Model.Products)
+            @foreach (ProductPureVM item in Model.ProductPureVMs)
             {
                 <div class="col-md-4">
                     <section class="panel">
@@ -74,7 +74,7 @@
 
                         <div class="panel-body text-center">
                             <h4>
-                                <a class="pro-title" title="@item.Category.CategoryName">
+                                <a class="pro-title" title="@item.CategoryName">
                                     @item.ProductName
                                 </a>
                             </h4>
