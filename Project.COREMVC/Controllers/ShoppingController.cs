@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Project.BLL.Managers.Abstracts;
+using Project.COMMON.Models;
+using Project.COMMON.Tools;
 using Project.COREMVC.Models.Orders;
 using Project.COREMVC.Models.Orders.PageVMs;
 using Project.COREMVC.Models.SessionService;
@@ -64,7 +66,7 @@ namespace Project.COREMVC.Controllers
             if (categoryID != null) TempData["catID"] = categoryID;
             return View(spVm);
         }
-        public async Task<IActionResult> AddToCart(int id)
+        public async Task<IActionResult> AddToCart(int id , string returnUrl)
         {
             Cart c = GetCartFromSession("scart") == null ? new Cart() : GetCartFromSession("scart");
             Product productToBeAdded = await _productManager.FindAsync(id);
@@ -83,8 +85,9 @@ namespace Project.COREMVC.Controllers
             SetCartForSession(c);
 
             TempData["Message"] = $"{ci.ProductName} isimli ürün sepete eklenmiştir";
-
-            return RedirectToAction("Index");
+            return Redirect(returnUrl);
+          //  return RedirectToAction("Index");
+           
 
         }
 
@@ -123,7 +126,14 @@ namespace Project.COREMVC.Controllers
             }
             return RedirectToAction("CartPage");
         }
-
+        public IActionResult DeleteCart()
+        {
+            if (GetCartFromSession("scart") != null)
+            {
+                HttpContext.Session.Remove("scart");
+            }
+            return RedirectToAction("CartPage");
+        }
        
 
         void ControlCart(Cart c)
@@ -188,7 +198,8 @@ namespace Project.COREMVC.Controllers
                 order.ShipperID = 1;
                 order.PriceOfOrder = c.TotalPrice;
                 await _orderManager.AddAsync(order); //Önce Order'in ID'sinin olusması lazım... Burada Order'i kaydederek o ID'nin Identity sayesinde olusmasını saglıyoruz...
-
+                List<OrderedProducts> orderedProducts = new List<OrderedProducts>();
+                
                 foreach (CartItem item in c.GetCartItems)
                 {
                     OrderDetail od = new();
@@ -197,8 +208,16 @@ namespace Project.COREMVC.Controllers
                     od.Quantity = item.Amount;
                     od.UnitPrice = item.UnitPrice;
                     await _orderDetailManager.AddAsync(od);
+
+                    OrderedProducts orderedProduct = new OrderedProducts();
+                    orderedProduct.Name = item.ProductName;
+                    orderedProduct.Price = item.UnitPrice;
+                    orderedProduct.Quantity = item.Amount;
+                    orderedProducts.Add(orderedProduct);
                 }
-                HttpContext.Session.Remove("scart");
+
+                MailService.MailOrder(order.Email, orderedProducts);
+                DeleteCart();
                 TempData["Message"] = "Siparişiniz bize basarıyla ulasmıstır...Teşekkür ederiz";
                 return RedirectToAction("Index");
             }
@@ -208,9 +227,6 @@ namespace Project.COREMVC.Controllers
             return RedirectToAction("Index");
 
             #endregion
-
-
-
         }
     }
 }

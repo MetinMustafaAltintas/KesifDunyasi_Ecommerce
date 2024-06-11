@@ -71,7 +71,7 @@ namespace Project.COREMVC.Controllers
 
                     MailService.Send(model.Email, body: body);
                     TempData["Message"] = "Mailinizi kontrol ediniz";
-                    return RedirectToAction("RedirectPanel");
+                    return RedirectToAction("SignIn");
 
                 }
                 foreach (IdentityError error in result.Errors)
@@ -90,7 +90,7 @@ namespace Project.COREMVC.Controllers
             if (user == null)
             {
                 TempData["Message"] = "Kullanýcý bulunamadý";
-                return RedirectToAction("RedirectPanel");
+                return RedirectToAction("SignIn");
             }
             else if (user.ActivationCode == specId)
             {
@@ -191,12 +191,6 @@ namespace Project.COREMVC.Controllers
         }
 
 
-        [Authorize(Roles = "Member")]
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         public IActionResult AccessDenied()
         {
             return View();
@@ -205,7 +199,7 @@ namespace Project.COREMVC.Controllers
         public async Task<IActionResult> SignOut()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Signin");
+            return RedirectToAction("index","Shopping");
         }
         
         public async Task<IActionResult> IforgotPassword(UserSignInPageVM model)

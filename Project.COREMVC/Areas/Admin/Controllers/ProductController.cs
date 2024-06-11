@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
+using NuGet.Packaging.Signing;
 using Project.BLL.Managers.Abstracts;
 using Project.BLL.Managers.Concretes;
 using Project.BLL.ServiceInjections;
@@ -76,13 +77,21 @@ namespace Project.COREMVC.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult CreateProduct(CreateProductPageVM CreateProductPageVM, IFormFile formFile)
         {
-            Guid uniqueName = Guid.NewGuid();
-            string extension = Path.GetExtension(formFile.FileName); //dosyanın uzantısını ele gecirdik...
-            CreateProductPageVM.Product.ImagePath = $"/images/{uniqueName}{extension}";
+            if (formFile != null)
+            {
+                Guid uniqueName = Guid.NewGuid();
+                string extension = Path.GetExtension(formFile.FileName); //dosyanın uzantısını ele gecirdik...
+                CreateProductPageVM.Product.ImagePath = $"/images/{uniqueName}{extension}";
 
-            string path = $"{Directory.GetCurrentDirectory()}/wwwroot{CreateProductPageVM.Product.ImagePath}";
-            FileStream stream = new(path, FileMode.Create);
-            formFile.CopyTo(stream);
+                string path = $"{Directory.GetCurrentDirectory()}/wwwroot{CreateProductPageVM.Product.ImagePath}";
+                FileStream stream = new(path, FileMode.Create);
+                formFile.CopyTo(stream);
+            }
+            else
+            {
+                CreateProductPageVM.Product.ImagePath = "/images/KesifDunyasi.png";
+            }
+            
 
             Product product = new Product();
             product.ProductName = CreateProductPageVM.Product.ProductName;

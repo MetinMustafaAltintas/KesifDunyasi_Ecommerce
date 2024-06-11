@@ -1,0 +1,88 @@
+﻿@model ProductDetailPageVM
+
+@if (TempData["Message"] != null)
+{
+    <h1 class="alert alert-danger">
+        <b>@TempData["Message"]!</b>
+    </h1>
+}
+@{
+    string returnUrl = Context.Request.Path + Context.Request.QueryString;
+}
+
+<!-- page start-->
+<div class="row">
+    <div class="col-md-12">
+
+        <section class="panel">
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="pro-img-details">
+                        @if (@Model.ProductDetails.ImagePath.Contains("nightlife"))
+                        {
+                            <img src="/images/BasicFoto.png" />
+                        }
+                        else
+                        {
+                            <img src="@Model.ProductDetails.ImagePath"/>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="pro-d-title">
+                        <a class="">
+                            <b>Ürün İsmi:</b>@Model.ProductDetails.ProductName
+                        </a>
+                    </h4>
+                    <p>
+
+                        @foreach (AttributeValuePureVM item in Model.Attributes)
+                        {
+
+                            <td><b>@item.AttributeName:</b>@item.Value </td>
+
+                            <br />
+
+                        }
+
+                    </p>
+                    <div class="product_meta">
+                        <span class="posted_in"> <strong>Kategorisi:</strong>@Model.ProductDetails.CategoryName</a></span>
+                    </div>
+                    <div class="m-bot15"> <strong>Fiyat : </strong>  <span class="pro-price"> @Model.ProductDetails.Unitprice.ToString("C", new System.Globalization.CultureInfo("tr-TR"))</span></div>
+                    <p>
+                        <a class="btn btn-round btn-success" type="button" asp-action="AddToCart" asp-controller="Shopping" asp-route-id="@Model.ProductDetails.ID" asp-route-returnUrl="@returnUrl"><i class="icon-shopping-cart"></i> Add to Cart</a>
+                    </p>
+                </div>
+            </div>
+           
+    </div>
+            </div>
+
+        </section>
+
+        <section class="panel">
+            <header class="panel-heading tab-bg-dark-navy-blue">
+                <ul class="nav nav-tabs ">
+                    <li class="active">
+                        <a data-toggle="tab" href="#description">
+                            Ürün Özellikleri
+                        </a>
+                    </li>
+                </ul>
+            </header>
+            <div class="panel-body">
+                <div class="tab-content tasi-tab">
+                    <div id="description" class="tab-pane active">
+                        @foreach (AttributeValuePureVM item in Model.Attributes)
+                        {
+                            <a><b>@item.AttributeName:</b>@item.Value</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+<!-- page end-->

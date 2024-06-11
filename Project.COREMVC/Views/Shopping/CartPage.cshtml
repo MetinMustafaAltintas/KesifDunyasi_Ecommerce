@@ -1,47 +1,72 @@
 ﻿@model MyCartPageVM
 
-
-<div class="jumbotron">
-    Odemeniz gereken toplam tutar => @Model.CartItems.Sum(x => x.SubTotal) ... Siparişi onaylamak icin lütfen <a asp-controller="Shopping" asp-action="ConfirmOrder"> tıklayınız </a>
-</div>
-
-<div class="row product-list">
-    @foreach (CartItem item in Model.CartItems)
-    {
-        <div class="col-md-4">
-            <section class="panel">
-                <div class="pro-img-box">
-                    @if (item.ImagePath.Contains("nightlife"))
+@if (TempData["Message"] != null)
+{
+    <h1 class="alert alert-danger">
+        <b>@TempData["Message"]!</b>
+    </h1>
+}
+@{
+    string returnUrl = Context.Request.Path + Context.Request.QueryString;
+}
+<div class="row">
+    <div class="col-sm-6">
+        <section class="panel">
+            <header class="panel-heading">
+                <a style="color:black;font-size: 24px;">Sepetim</a>
+                <a asp-action="DeleteCart" asp-controller="Shopping" style="float:right; color:black;font-size: 24px;">Sepeti Temizle</a>
+            </header>
+            <table class="table" style="color:black">
+                <thead>
+                    <tr>
+                        <th>Ürün</th>
+                        <th>Ürün Bilgisi</th>
+                        <th>Ürün Fiyatı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (CartItem item in Model.CartItems)
                     {
-                        <img src="/images/BasicFoto.png" />
+                        <tr >
+                            <td width="200" height="150">
+                                @if (@item.ImagePath.Contains("nightlife"))
+                                {
+                                    <img src="/images/BasicFoto.png" width="150" height="150" />
+                                }
+                                else
+                                {
+                                    <img src="@item.ImagePath" width="150" height="150" />
+                                }
+                            </td>
+                            <td>
+                                <a style="color:black">@item.ProductName</a><br />
+                                <a style="color:black">Adet Fiyatı = @item.UnitPrice.ToString("C", new System.Globalization.CultureInfo("tr-TR"))</a> <br /><br /><br /><br /><br />
+                                <a asp-action="DecreaseFromCart" asp-route-id="@item.ID">
+                                    <i class="icon-minus-sign" style="font-size: 24px;color:black; "></i>
+                                </a>
+                                <a style="font-size: 24px;color:black;">@item.Amount</a>
+                                <a asp-action="AddToCart" asp-route-id="@item.ID" asp-route-returnUrl="@returnUrl">
+                                    <i class=" icon-plus-sign" style="font-size: 24px;color:black;"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a style="font-size: 24px;color:black;">@item.SubTotal.ToString("C", new System.Globalization.CultureInfo("tr-TR"))</a>
+                            </td>
+                        </tr>
                     }
-                    else
-                    {
-                        <img src="@item.ImagePath" />
-                    }
-
-
-                    <a asp-action="DeleteFromCart" asp-route-id="@item.ID" class="adtocart">
-                        <i class="glyphicon glyphicon-remove"></i>
-                    </a>
-                </div>
-
-                <div class="panel-body text-center">
-                    <h4>
-                        <a asp-action="Index" asp-route-categoryID="@item.CategoryID" class="pro-title" title="@item.CategoryName ürünlerini görmek icin tıklayabilirsiniz">
-                            @item.ProductName x @item.Amount
-                        </a>
-                    </h4>
-                    <p class="price">$@item.UnitPrice</p>
-                    <a asp-action="DecreaseFromCart" asp-route-id="@item.ID" class="adtocart">
-                        <i class="glyphicon glyphicon-minus"></i>
-
-                    </a>
+                    <tr>
+                        <td colspan="3" align="right">
+                            <a style="font-size: 24px;color:black;"> Ödenecek Tutar: @Model.CartItems.Sum(x => x.SubTotal).ToString("C", new System.Globalization.CultureInfo("tr-TR")) </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" align="right">
+                            <a asp-controller="Shopping" asp-action="ConfirmOrder" class="btn btn-success "> Alışverişi Tamamla </a>
+                        </td>
+                    </tr>
                     
-                </div>
-            </section>
-        </div>
-    }
-
-
-</div>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>   

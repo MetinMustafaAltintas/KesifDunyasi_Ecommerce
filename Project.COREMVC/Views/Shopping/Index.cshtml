@@ -7,6 +7,9 @@
         <b>@TempData["Message"]!</b>
     </h1>
 }
+@{
+    string returnUrl = Context.Request.Path + Context.Request.QueryString;
+}
 <div class="row">
     <div class="col-md-3">
 
@@ -59,15 +62,15 @@
                         <div class="pro-img-box">
                             @if (item.ImagePath.Contains("nightlife"))
                             {
-                                <img src="/images/BasicFoto.png" />
+                                <a asp-action="index" asp-controller="Product" asp-area="" asp-route-id="@item.ID"><img src="/images/BasicFoto.png" width="250" height="350" /></a>
                             }
                             else
                             {
-                                <img src="@item.ImagePath" />
+                                <a asp-action="index" asp-controller="Product" asp-area="" asp-route-id="@item.ID"> <img src="@item.ImagePath" width="250" height="350" /></a>
                             }
 
 
-                            <a asp-action="AddToCart" asp-route-id="@item.ID" class="adtocart">
+                            <a asp-action="AddToCart" asp-route-id="@item.ID" asp-route-returnUrl="@returnUrl" class="adtocart">
                                 <i class="icon-shopping-cart"></i>
                             </a>
                         </div>
@@ -78,7 +81,7 @@
                                     @item.ProductName
                                 </a>
                             </h4>
-                            <p class="price">$@item.UnitPrice</p>
+                            <p class="price">@item.UnitPrice.ToString("C", new System.Globalization.CultureInfo("tr-TR"))</p>
                         </div>
                     </section>
                 </div>
@@ -89,4 +92,3 @@
     </div>
 </div>
 
-}
