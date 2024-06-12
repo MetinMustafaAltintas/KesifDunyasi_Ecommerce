@@ -29,20 +29,23 @@ namespace Project.COREMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdatePassword(UpdatePasswordPageVM model)
         {
-            AppUser appUser = await _userManager.FindByIdAsync(model.UpdatePasswordPureVM.ID.ToString());
-            IdentityResult result = await _userManager.ChangePasswordAsync(appUser, model.UpdatePasswordPureVM.CurrentPassword, model.UpdatePasswordPureVM.NewPassword);
-
-            if (result.Succeeded)
+            if (ModelState.IsValid)
             {
-                TempData["Message"] = "Şifreniz Güncelledi";
-                return RedirectToAction("Index", "Profile", new { name = appUser.UserName });
-            }
-            else
-            {
-                TempData["Message"] = "Hata!! Şifre Güncellenemedi";
-                return View(model);
-            }
+                AppUser appUser = await _userManager.FindByIdAsync(model.UpdatePasswordPureVM.ID.ToString());
+                IdentityResult result = await _userManager.ChangePasswordAsync(appUser, model.UpdatePasswordPureVM.CurrentPassword, model.UpdatePasswordPureVM.NewPassword);
 
+                if (result.Succeeded)
+                {
+                    TempData["Message"] = "Şifreniz Güncelledi";
+                    return RedirectToAction("Index", "Profile", new { name = appUser.UserName });
+                }
+                else
+                {
+                    TempData["Message"] = "Hata!! Şifre Güncellenemedi";
+                    return View(model);
+                }
+            }
+            return View(model);
         }
 
         public IActionResult ChangeEmail()

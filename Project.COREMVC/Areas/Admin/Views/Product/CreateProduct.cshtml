@@ -6,20 +6,19 @@
     <div class="mb-3">
         <label>Ürün İsmini giriniz</label>
         <input asp-for="Product.ProductName" class="form-control" />
+        <span asp-validation-for="Product.ProductName" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
         <label>Fiyat giriniz</label>
         <input asp-for="Product.Unitprice" class="form-control" />
-
-
+        <span asp-validation-for="Product.Unitprice" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
         <label>Stok giriniz</label>
         <input asp-for="Product.UnitsInStock" class="form-control" />
-
-
+        <span asp-validation-for="Product.UnitsInStock" class="text-danger"></span>
     </div>
 
     <div class="mb-3">

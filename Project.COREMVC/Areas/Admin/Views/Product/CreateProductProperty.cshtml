@@ -7,13 +7,13 @@
     <div class="mb-3">
         <label>Ürün Özelliği Giriniz</label>
         <input asp-for="AttributeValueVM.AttributeName" asp-area="admin" class="form-control" />
+        <span asp-validation-for="AttributeValueVM.AttributeName" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
         <label>Özellik Değerini Giriniz</label>
         <input asp-for="AttributeValueVM.Value" class="form-control" />
-
-
+        <span asp-validation-for="AttributeValueVM.Value" class="text-danger"></span>
     </div>
     <br />
     <div class="mb-3">

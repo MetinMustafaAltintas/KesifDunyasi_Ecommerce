@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Project.COREMVC.Areas.Admin.Models.AppRoles.PageVMs;
 using Project.COREMVC.Areas.Admin.Models.AppRoles.PureVMs;
-using Project.COREMVC.Areas.Admin.Models.User.PageVMs;
-using Project.COREMVC.Areas.Admin.Models.User.PureVMs;
 using Project.ENTITIES.Models;
 
 namespace Project.COREMVC.Areas.Admin.Controllers
@@ -20,9 +19,9 @@ namespace Project.COREMVC.Areas.Admin.Controllers
             _roleManager = roleManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<AppRole> userAppRole = _roleManager.Roles.ToList();
+            List<AppRole> userAppRole = await _roleManager.Roles.ToListAsync();
 
             List<GetRolePureVM> rolePureVMs = userAppRole.Select(rolePureVMs => new GetRolePureVM
             {
@@ -39,21 +38,18 @@ namespace Project.COREMVC.Areas.Admin.Controllers
         }
 
         
-        public async Task<IActionResult> Role(AppRolePageVM model)
+        public async Task<IActionResult>RoleCreate(AppRolePageVM model)
         {
-            if (ModelState.IsValid)
+           
+            IdentityResult result = await _roleManager.CreateAsync(new()
             {
-                IdentityResult result = await _roleManager.CreateAsync(new()
-                {
-                    Name = model.CreateRolePureVM.RoleName
-                });
+                Name = model.CreateRolePureVM.RoleName
+            });
 
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index");
             }
-
             return RedirectToAction("Index");
         }
 
@@ -66,38 +62,40 @@ namespace Project.COREMVC.Areas.Admin.Controllers
                 ID = Role.Id.ToString(),
                 RoleName = Role.Name
             };
-            return View(rolePureVM);
+
+            UpdateRolePageVM rolePageVM = new();
+            rolePageVM.UpdateRolePureVM = rolePureVM;
+            return View(rolePageVM);
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateRole(UpdateRolePageVM model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
+                AppRole role = await _roleManager.FindByIdAsync(model.UpdateRolePureVM.ID);
+                if (role == null)
+                {
+                    TempData["Message"] = "Rol Bulunamadı";
+                    return View();
+                }
+
+                role.Name = model.UpdateRolePureVM.RoleName;
+                role.ModifiedDate = DateTime.Now;
+                role.Status = ENTITIES.Enums.DataStatus.Updated;
+                role.ConcurrencyStamp = Guid.NewGuid().ToString();
+
+                IdentityResult result = await _roleManager.UpdateAsync(role);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                foreach (IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
                 return View(model);
-            }
-
-            AppRole role = await _roleManager.FindByIdAsync(model.UpdateRolePureVM.ID);
-            if (role == null)
-            {
-                TempData["Message"] = "Rol Bulunamadı";
-                return View();
-            }
-
-            role.Name = model.UpdateRolePureVM.ID;
-            role.ModifiedDate = DateTime.Now;
-            role.Status = ENTITIES.Enums.DataStatus.Updated;
-            role.ConcurrencyStamp = Guid.NewGuid().ToString();
-
-            IdentityResult result = await _roleManager.UpdateAsync(role);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("Index");
-            }
-
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
             }
             return View(model);
         }
@@ -105,27 +103,37 @@ namespace Project.COREMVC.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteRole(string id)
         {
             AppRole role = await _roleManager.FindByIdAsync(id);
-            if (role.Status == ENTITIES.Enums.DataStatus.Deleted)
+            if (role != null)
             {
-                _roleManager.DeleteAsync(role);
-                TempData["Message"] = "Rol Silindi";
+                if (role.Status == ENTITIES.Enums.DataStatus.Deleted)
+                {
+                    await _roleManager.DeleteAsync(role);
+                    TempData["Message"] = "Rol Silindi";
+                    return RedirectToAction("Index");
+                }
+                TempData["Message"] = "Rol Pasif Değil";
                 return RedirectToAction("Index");
             }
-            TempData["Message"] = "Rol Pasif Değil";
+            TempData["Message"] = "Rol Bulunamadı";
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> PassiveRole(string id)
         {
             AppRole role = await _roleManager.FindByIdAsync(id);
-            role.Status = ENTITIES.Enums.DataStatus.Deleted;
-            IdentityResult result = await _roleManager.UpdateAsync(role);
-            if (result.Succeeded)
+            if (role != null)
             {
-                TempData["Message"] = "Rol Pasife Alındı";
+                role.Status = ENTITIES.Enums.DataStatus.Deleted;
+                IdentityResult result = await _roleManager.UpdateAsync(role);
+                if (result.Succeeded)
+                {
+                    TempData["Message"] = "Rol Pasife Alındı";
+                    return RedirectToAction("Index");
+                }
+                TempData["Message"] = "Rol Pasife Alınamadı";
                 return RedirectToAction("Index");
             }
-            TempData["Message"] = "Rol Pasife Alınamadı";
+            TempData["Message"] = "Rol Bulunamadı";
             return RedirectToAction("Index");
         }
     }

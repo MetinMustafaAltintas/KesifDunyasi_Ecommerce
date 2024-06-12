@@ -86,6 +86,7 @@ namespace Project.BLL.Managers.Concretes
         public void Delete(T item)
         {
             _iRep.Delete(item);
+            
         }
 
         public void DeleteRange(List<T> list)

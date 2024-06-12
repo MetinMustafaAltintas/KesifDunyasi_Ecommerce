@@ -38,8 +38,8 @@ namespace Project.COREMVC.Areas.Admin.Controllers
             int siparisSayisi = _orderManager.GetAll().Count();
             int gunlukSiparisSayisi = _orderManager.GetAll().Where(x => x.CreatedDate.Day == DateTime.Now.Day).Count();
 
-            int toplamTutar = Convert.ToInt32(_orderManager.GetAll().Sum(x => x.PriceOfOrder));
-            int gunlukToplamTutar = Convert.ToInt32(_orderManager.GetAll().Where(x => x.CreatedDate.Day == DateTime.Now.Day).Sum(x => x.PriceOfOrder));
+            string toplamTutar = _orderManager.GetAll().Sum(x => x.PriceOfOrder).ToString("C", new CultureInfo("tr-TR"));
+            string gunlukToplamTutar = _orderManager.GetAll().Where(x => x.CreatedDate.Day == DateTime.Now.Day).Sum(x => x.PriceOfOrder).ToString("C", new CultureInfo("tr-TR"));
 
             List<AylikSatisPureVM> aylikSatis = new List<AylikSatisPureVM>
             {

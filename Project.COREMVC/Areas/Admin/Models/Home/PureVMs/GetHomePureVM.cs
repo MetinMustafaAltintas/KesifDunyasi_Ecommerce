@@ -11,8 +11,8 @@ namespace Project.COREMVC.Areas.Admin.Models.Home.PureVMs
         public int YeniUrunSayisi { get; set; }
         public int SiparisSayisi { get; set; }
         public int YeniSiparisSayisi { get; set; }
-        public int ToplamTutar { get; set; }
-        public int GunlukToplamTutar { get; set; }
+        public string ToplamTutar { get; set; }
+        public string GunlukToplamTutar { get; set; }
         public int MaxSatisMiktari { get; set; }
     }
 }

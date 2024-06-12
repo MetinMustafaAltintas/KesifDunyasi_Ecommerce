@@ -37,7 +37,7 @@
                                     <td>@item.NameDescription</td>
                                     <td>@item.ShippingAddress</td>
                                     <td>@item.Email</td>
-                                    <td>@item.PriceOfOrder</td>
+                                    <td>@item.PriceOfOrder.ToString("C", new System.Globalization.CultureInfo("tr-TR"))</td>
                                     <td>@item.AppUserID</td>
                                     <td>@item.Shipper</td>
                                     <td class="center hidden-phone">@item.Status</td>

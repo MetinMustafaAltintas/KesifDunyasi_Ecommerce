@@ -48,7 +48,7 @@ namespace Project.COREMVC.Areas.Admin.Controllers
                 TempData["Message"] = $"{shipper.CompanyName} verisi eklendi";
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(model);
         }
 
         public async Task<IActionResult> UpdateShipper(int id)
@@ -78,7 +78,7 @@ namespace Project.COREMVC.Areas.Admin.Controllers
                 TempData["Message"] = $"{shipper.CompanyName} verisi güncellendi";
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return View(model);
         }
 
         public async Task<IActionResult> PassiveShipper(int id)

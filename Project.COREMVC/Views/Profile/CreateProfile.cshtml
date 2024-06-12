@@ -11,36 +11,42 @@
                     <label class="col-lg-2 control-label">İsim</label>
                     <div class="col-lg-6">
                         <input asp-for="CreateProfilePureVM.FirstName" type="text" class="form-control">
+                        <span class="text-danger" asp-validation-for="CreateProfilePureVM.FirstName"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Soyisim</label>
                     <div class="col-lg-6">
                         <input asp-for="CreateProfilePureVM.LastName" type=" text" class="form-control">
+                        <span class="text-danger" asp-validation-for="CreateProfilePureVM.LastName"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Ülke</label>
                     <div class="col-lg-6">
                         <input asp-for="CreateProfilePureVM.Country" type="text" class="form-control">
+                        <span class="text-danger" asp-validation-for="CreateProfilePureVM.Country"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Şehir</label>
                     <div class="col-lg-6">
                         <input asp-for="CreateProfilePureVM.City" type="text" class="form-control">
+                        <span class="text-danger" asp-validation-for="CreateProfilePureVM.City"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Doğum Tarihi</label>
                     <div class="col-lg-6">
                         <input asp-for="CreateProfilePureVM.Birthday" type="date" class="form-control">
+                        <span class="text-danger" asp-validation-for="CreateProfilePureVM.Birthday"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Telefon</label>
                     <div class="col-lg-6">
                         <input asp-for=CreateProfilePureVM.Phone type="text" class="form-control">
+                        <span class="text-danger" asp-validation-for="CreateProfilePureVM.Phone"></span>
                     </div>
                 </div>
                 <div class="form-group">

@@ -75,7 +75,6 @@ namespace Project.DAL.Repositories.Concretes
 
         public void Destroy(T item)
         {
-
             _db.Set<T>().Remove(item);
             Save();
         }

@@ -2,14 +2,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Project.BLL.Managers.Abstracts;
 using Project.COMMON.Tools;
 using Project.COREMVC.Areas.Admin.Models.AppRoles.PageVMs;
 using Project.COREMVC.Areas.Admin.Models.AppRoles.PureVMs;
 using Project.COREMVC.Areas.Admin.Models.User.PageVMs;
 using Project.COREMVC.Areas.Admin.Models.User.PureVMs;
 using Project.ENTITIES.Models;
-using System;
 
 namespace Project.COREMVC.Areas.Admin.Controllers
 {
@@ -68,7 +66,7 @@ namespace Project.COREMVC.Areas.Admin.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(appUser, "Member");
-                    string body = $"Hesabınız olusturulmustur...Üyeligini onaylamak icin lütfen http://localhost:5014/Home/ConfirmEmail?specId={specId}&id={appUser.Id} linkine tıklayınız";
+                    string body = $"Hesabınız olusturulmustur...Şifreniz =>Abcdefg1!  Üyeligini onaylamak icin lütfen http://localhost:5014/Home/ConfirmEmail?specId={specId}&id={appUser.Id} linkine tıklayınız";
                     MailService.Send(model.CreateUserRequestModel.Email, body: body);
                     return RedirectToAction("Index");
                 }

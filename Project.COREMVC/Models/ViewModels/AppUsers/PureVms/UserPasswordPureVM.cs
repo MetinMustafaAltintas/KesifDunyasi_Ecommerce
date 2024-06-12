@@ -15,6 +15,6 @@ namespace Project.COREMVC.Models.ViewModels.AppUsers.PureVms
 
         [Display(Name = "Şifre Tekrar")]
         [Compare("newPassword", ErrorMessage = "Şifreler Uyuşmuyor")]
-        public string? ConfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; }
     }
 }

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Project.BLL.Managers.Abstracts;
 using Project.COREMVC.Areas.Admin.Models.Category.PageVMs;
 using Project.COREMVC.Areas.Admin.Models.Category.PureVMs;
-using Project.COREMVC.Areas.Admin.Models.Products.PureVMs;
 using Project.ENTITIES.Models;
 
 namespace Project.COREMVC.Areas.Admin.Controllers
@@ -41,21 +40,24 @@ namespace Project.COREMVC.Areas.Admin.Controllers
             return View();
         }
 
-        //Normal şartlarda Domain Entity ile calısmamanız gerekir...BUrada bir CreateCategoryRequestModel gereklidir...
-
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CreateCategoryPageVM model)
         {
-            Category category = new Category();
-            category.CategoryName = model.CreateCategoryPureVM.CategoryName;
-            category.Description= model.CreateCategoryPureVM.Description;
-            await _categoryManager.AddAsync(category);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                Category category = new Category();
+                category.CategoryName = model.CreateCategoryPureVM.CategoryName;
+                category.Description = model.CreateCategoryPureVM.Description;
+                await _categoryManager.AddAsync(category);
+                TempData["Message"] = $"{category.CategoryName} verisi Eklendi";
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            _categoryManager.Delete(await _categoryManager.FindAsync(id));
+             _categoryManager.Delete(await _categoryManager.FindAsync(id));
             return RedirectToAction("Index");
         }
 
@@ -68,7 +70,7 @@ namespace Project.COREMVC.Areas.Admin.Controllers
         public async Task<IActionResult> UpdateCategory(int id)
         {
             Category category = await _categoryManager.FindAsync(id);
-            UpdateCategoryPureVM  updateCategoryPureVM = new UpdateCategoryPureVM();
+            UpdateCategoryPureVM updateCategoryPureVM = new UpdateCategoryPureVM();
             updateCategoryPureVM.ID = category.ID;
             updateCategoryPureVM.CategoryName= category.CategoryName;
             updateCategoryPureVM.Description= category.Description;
@@ -90,7 +92,7 @@ namespace Project.COREMVC.Areas.Admin.Controllers
                 TempData["Message"] = $"{category.CategoryName} verisi güncellendi";
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return View(model);
         }
     }
 }

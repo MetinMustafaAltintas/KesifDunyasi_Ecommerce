@@ -7,5 +7,7 @@ namespace Project.COREMVC.Areas.Admin.Models.AppRoles.PageVMs
     {
         public List<GetRolePureVM> RolePureVM { get; set; }
         public CreateRolePureVM CreateRolePureVM { get; set; }
+
+       
     }
 }

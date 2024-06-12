@@ -23,7 +23,7 @@
                                 <tr class="gradeX">
                                     <td>@item.ProductName</td>
                                     <td>@item.Quantity</td>
-                                    <td>@item.UnitPrice</td>
+                                    <td>@item.UnitPrice.ToString("C", new System.Globalization.CultureInfo("tr-TR"))</td>
                                 </tr>
                             }
                         </tbody>

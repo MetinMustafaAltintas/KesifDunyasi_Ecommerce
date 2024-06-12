@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
-using NuGet.Packaging.Signing;
 using Project.BLL.Managers.Abstracts;
-using Project.BLL.Managers.Concretes;
 using Project.BLL.ServiceInjections;
-using Project.COREMVC.Areas.Admin.Models.AppRoles.PureVMs;
 using Project.COREMVC.Areas.Admin.Models.Category.PureVMs;
 using Project.COREMVC.Areas.Admin.Models.ProductAndProductAttribute.PureVMs;
 using Project.COREMVC.Areas.Admin.Models.ProductAttribute.PageVMs;
@@ -15,6 +10,7 @@ using Project.COREMVC.Areas.Admin.Models.ProductAttribute.PureVMs;
 using Project.COREMVC.Areas.Admin.Models.Products.PageVMs;
 using Project.COREMVC.Areas.Admin.Models.Products.PureVMs;
 using Project.ENTITIES.Models;
+using System;
 
 namespace Project.COREMVC.Areas.Admin.Controllers
 {
@@ -91,7 +87,7 @@ namespace Project.COREMVC.Areas.Admin.Controllers
             {
                 CreateProductPageVM.Product.ImagePath = "/images/KesifDunyasi.png";
             }
-            
+
 
             Product product = new Product();
             product.ProductName = CreateProductPageVM.Product.ProductName;
@@ -101,7 +97,9 @@ namespace Project.COREMVC.Areas.Admin.Controllers
             product.CategoryID = CreateProductPageVM.Product.CategoryID;
 
             _productManager.Add(product);
+            TempData["Message"] = $"{product.ProductName} Verisi Eklendi";
             return RedirectToAction("Index");
+            
         }
 
         public async Task<IActionResult> DeleteProduct(int id)
@@ -164,41 +162,28 @@ namespace Project.COREMVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateProduct(UpdateProductPageVM UpdateProductPageVM, IFormFile formFile)
         {
-            if (formFile != null)
-            {
-                Guid uniqueName = Guid.NewGuid();
-                string extension = Path.GetExtension(formFile.FileName); //dosyanın uzantısını ele gecirdik...
-                UpdateProductPageVM.Product.ImagePath = $"/images/{uniqueName}{extension}";
+           if (formFile != null)
+           {
+               Guid uniqueName = Guid.NewGuid();
+               string extension = Path.GetExtension(formFile.FileName); //dosyanın uzantısını ele gecirdik...
+               UpdateProductPageVM.Product.ImagePath = $"/images/{uniqueName}{extension}";
 
-                string path = $"{Directory.GetCurrentDirectory()}/wwwroot{UpdateProductPageVM.Product.ImagePath}";
-                FileStream stream = new(path, FileMode.Create);
-                formFile.CopyTo(stream);
+               string path = $"{Directory.GetCurrentDirectory()}/wwwroot{UpdateProductPageVM.Product.ImagePath}";
+               FileStream stream = new(path, FileMode.Create);
+               formFile.CopyTo(stream);
+           }
 
-                Product product = new Product();
-                product.ID = UpdateProductPageVM.Product.ID;
-                product.ProductName = UpdateProductPageVM.Product.ProductName;
-                product.UnitPrice = UpdateProductPageVM.Product.Unitprice;
-                product.UnitsInStock = UpdateProductPageVM.Product.UnitsInStock;
-                product.ImagePath = UpdateProductPageVM.Product.ImagePath;
-                product.CategoryID = UpdateProductPageVM.Product.CategoryID;
-                await _productManager.UpdateAsync(product);
-                TempData["Message"] = $"{product.ProductName} Ürün Güncellendi";
-                return RedirectToAction("Index");
-
-            }
-            else
-            {
-                Product product = new Product();
-                product.ID = UpdateProductPageVM.Product.ID;
-                product.ProductName = UpdateProductPageVM.Product.ProductName;
-                product.UnitPrice = UpdateProductPageVM.Product.Unitprice;
-                product.UnitsInStock = UpdateProductPageVM.Product.UnitsInStock;
-                product.CategoryID = UpdateProductPageVM.Product.CategoryID;
-                product.ImagePath = UpdateProductPageVM.Product.ImagePath;
-                await _productManager.UpdateAsync(product);
-                TempData["Message"] = $"{product.ProductName} Ürün Güncellendi";
-                return RedirectToAction("Index");
-            }
+               Product product = new Product();
+               product.ID = UpdateProductPageVM.Product.ID;
+               product.ProductName = UpdateProductPageVM.Product.ProductName;
+               product.UnitPrice = UpdateProductPageVM.Product.Unitprice;
+               product.UnitsInStock = UpdateProductPageVM.Product.UnitsInStock;
+               product.CategoryID = UpdateProductPageVM.Product.CategoryID;
+               product.ImagePath = UpdateProductPageVM.Product.ImagePath;
+               await _productManager.UpdateAsync(product);
+               TempData["Message"] = $"{product.ProductName} Ürün Güncellendi";
+               return RedirectToAction("Index");
+               
         }
 
         public async Task<IActionResult> ProductProperty(int id)
@@ -235,6 +220,7 @@ namespace Project.COREMVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> CreateProductProperty(int id)
         {
+
             AttributeValuePureVM attributeValuePureVM = new AttributeValuePureVM();
             attributeValuePureVM.ID = id;
             CreateAttribuePageVM cApvm = new CreateAttribuePageVM();
@@ -245,49 +231,53 @@ namespace Project.COREMVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProductProperty(CreateAttribuePageVM model)
         {
-            Product product = await _productManager.FindAsync(model.AttributeValueVM.ID);
-            if (product != null)
+            if (ModelState.IsValid)
             {
-                List<ProductAttribute> attributes = await _productAttributeManager.GetActivesAsync();
-
-                ProductAttribute productAttribute = new ProductAttribute();
-                productAttribute.AttributeName = model.AttributeValueVM.AttributeName;
-                productAttribute.AttributeName = productAttribute.AttributeName.ToTitleCase();
-                int eskiID = productAttribute.ID;
-                foreach (ProductAttribute item in attributes)
+                Product product = await _productManager.FindAsync(model.AttributeValueVM.ID);
+                if (product != null)
                 {
-                    if (item.AttributeName == productAttribute.AttributeName)
+                    List<ProductAttribute> attributes = await _productAttributeManager.GetActivesAsync();
+
+                    ProductAttribute productAttribute = new ProductAttribute();
+                    productAttribute.AttributeName = model.AttributeValueVM.AttributeName;
+                    productAttribute.AttributeName = productAttribute.AttributeName.ToTitleCase();
+                    int eskiID = productAttribute.ID;
+                    foreach (ProductAttribute item in attributes)
                     {
-                        productAttribute.ID= item.ID;
-                        break;
+                        if (item.AttributeName == productAttribute.AttributeName)
+                        {
+                            productAttribute.ID = item.ID;
+                            break;
+                        }
                     }
-                }
-                if (eskiID == productAttribute.ID)
-                {
-                    _productAttributeManager.Add(productAttribute);
-                }
-                ProductAndProductAttribute ayniozellikvarmi = _productAndProductAttributeManager.Where(x => x.ProductID == product.ID && x.ProductAttributeID == productAttribute.ID).FirstOrDefault();
+                    if (eskiID == productAttribute.ID)
+                    {
+                        _productAttributeManager.Add(productAttribute);
+                    }
+                    ProductAndProductAttribute ayniozellikvarmi = _productAndProductAttributeManager.Where(x => x.ProductID == product.ID && x.ProductAttributeID == productAttribute.ID).FirstOrDefault();
 
-                if (ayniozellikvarmi != null)
-                {
-                    TempData["Message"] = $"{product.ProductName} isimli üründe {productAttribute.AttributeName} özelliği bulunuyor";
+                    if (ayniozellikvarmi != null)
+                    {
+                        TempData["Message"] = $"{product.ProductName} isimli üründe {productAttribute.AttributeName} özelliği bulunuyor";
+                        return RedirectToAction("ProductProperty", new { id = model.AttributeValueVM.ID });
+                    }
+
+                    ProductAndProductAttribute pAppa = new ProductAndProductAttribute();
+                    pAppa.ProductID = product.ID;
+                    pAppa.ProductAttributeID = productAttribute.ID;
+                    pAppa.Value = model.AttributeValueVM.Value;
+                    _productAndProductAttributeManager.Add(pAppa);
+
+                    TempData["Message"] = $"{product.ProductName} Ürün Güncellendi";
                     return RedirectToAction("ProductProperty", new { id = model.AttributeValueVM.ID });
                 }
-
-                ProductAndProductAttribute pAppa = new ProductAndProductAttribute();
-                pAppa.ProductID = product.ID;
-                pAppa.ProductAttributeID = productAttribute.ID;
-                pAppa.Value = model.AttributeValueVM.Value;
-                _productAndProductAttributeManager.Add(pAppa);
-
-                TempData["Message"] = $"{product.ProductName} Ürün Güncellendi";
-                return RedirectToAction("ProductProperty", new { id = model.AttributeValueVM.ID });
+                else
+                {
+                    TempData["Message"] = "Ürün Bulunamadı";
+                    return RedirectToAction("ProductProperty", new { id = model.AttributeValueVM.ID });
+                }
             }
-            else
-            {
-                TempData["Message"] = "Ürün Bulunamadı";
-                return RedirectToAction("ProductProperty", new { id = model.AttributeValueVM.ID });
-            }
+            return View(model);
         }
 
         public async Task<IActionResult> GetProductProperty(int id)
@@ -338,12 +328,16 @@ namespace Project.COREMVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateAttribute(UpdateAttribuePageVM updateAttribue)
         {
-            ProductAttribute attribute = new ProductAttribute();
-            attribute.ID = updateAttribue.UpdateAttribuePureVM.ID;
-            attribute.AttributeName = updateAttribue.UpdateAttribuePureVM.AttributeName;
-            await _productAttributeManager.UpdateAsync(attribute);
-            TempData["Message"] = $"{attribute.AttributeName}  Güncellendi";
-            return RedirectToAction("index");
+            if (ModelState.IsValid)
+            {
+                ProductAttribute attribute = new ProductAttribute();
+                attribute.ID = updateAttribue.UpdateAttribuePureVM.ID;
+                attribute.AttributeName = updateAttribue.UpdateAttribuePureVM.AttributeName;
+                await _productAttributeManager.UpdateAsync(attribute);
+                TempData["Message"] = $"{attribute.AttributeName}  Güncellendi";
+                return RedirectToAction("index");
+            }
+            return View(updateAttribue);
         }
 
         public async Task<IActionResult> DeleteAttribute(int id)
@@ -371,26 +365,28 @@ namespace Project.COREMVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateValue(UpdateValuePageVM valuePageVM)
         {
-            ProductAndProductAttribute value = new ProductAndProductAttribute();
-            value.ProductID = valuePageVM.UpdateValuePureVM.ProductID;
-            value.ProductAttributeID = valuePageVM.UpdateValuePureVM.AttributeID;
-            value.Value = valuePageVM.UpdateValuePureVM.ValueName;
+            if (ModelState.IsValid)
+            {
+                ProductAndProductAttribute value = new ProductAndProductAttribute();
+                value.ProductID = valuePageVM.UpdateValuePureVM.ProductID;
+                value.ProductAttributeID = valuePageVM.UpdateValuePureVM.AttributeID;
+                value.Value = valuePageVM.UpdateValuePureVM.ValueName;
 
-            ProductAndProductAttribute orginaldata = _productAndProductAttributeManager.Where(x => x.ProductID == value.ProductID && x.ProductAttributeID == value.ProductAttributeID).FirstOrDefault();
+                ProductAndProductAttribute orginaldata = _productAndProductAttributeManager.Where(x => x.ProductID == value.ProductID && x.ProductAttributeID == value.ProductAttributeID).FirstOrDefault();
 
-            _productAndProductAttributeManager.Updated(value, orginaldata);
-            TempData["Message"] = $"{value.Value}  Güncellendi";
-            return RedirectToAction("GetProductProperty", new { id = valuePageVM.UpdateValuePureVM.ProductID });
+                _productAndProductAttributeManager.Updated(value, orginaldata);
+                TempData["Message"] = $"{value.Value}  Güncellendi";
+                return RedirectToAction("GetProductProperty", new { id = valuePageVM.UpdateValuePureVM.ProductID });
+            }
+            return View(valuePageVM);
         }
 
         public async Task<IActionResult> DeleteValue(int AttributeID, int ProductID)
         {
-
             ProductAndProductAttribute orginaldata = _productAndProductAttributeManager.Where(x => x.ProductID == ProductID && x.ProductAttributeID == AttributeID).FirstOrDefault();
 
             TempData["Message"] = _productAndProductAttributeManager.Destroy(orginaldata);
             return RedirectToAction("index");
-            
         }
     }
 }
