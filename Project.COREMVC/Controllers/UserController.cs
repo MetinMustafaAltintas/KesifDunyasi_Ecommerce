@@ -9,6 +9,7 @@ using System;
 
 namespace Project.COREMVC.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class UserController : Controller
     {
         readonly UserManager<AppUser> _userManager;

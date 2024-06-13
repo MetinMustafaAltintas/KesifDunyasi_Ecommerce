@@ -1,15 +1,13 @@
-﻿using Castle.Components.DictionaryAdapter.Xml;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project.BLL.Managers.Abstracts;
-using Project.BLL.Managers.Concretes;
-using Project.COREMVC.Areas.Admin.Models.Products.PageVMs;
 using Project.COREMVC.Models.Profile.PageVMs;
 using Project.COREMVC.Models.Profile.PureVMs;
 using Project.ENTITIES.Models;
 
 namespace Project.COREMVC.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class ProfileController : Controller
     {
         readonly UserManager<AppUser> _userManager;

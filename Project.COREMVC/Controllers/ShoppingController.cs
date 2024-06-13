@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using Project.BLL.Managers.Abstracts;
 using Project.COMMON.Models;
 using Project.COMMON.Tools;
-using Project.COREMVC.Models.Orders;
 using Project.COREMVC.Models.Orders.PageVMs;
 using Project.COREMVC.Models.SessionService;
 using Project.COREMVC.Models.Shopping.PageVMs;
@@ -16,6 +15,7 @@ using X.PagedList;
 
 namespace Project.COREMVC.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class ShoppingController : Controller
     {
         readonly IProductManager _productManager;

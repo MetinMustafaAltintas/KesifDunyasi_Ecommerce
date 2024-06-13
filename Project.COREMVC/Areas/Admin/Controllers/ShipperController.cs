@@ -9,6 +9,7 @@ namespace Project.COREMVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
+    [AutoValidateAntiforgeryToken]
     public class ShipperController : Controller
     {
         readonly IShipperManager _shipperManager;

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project.BLL.Managers.Abstracts;
-using Project.BLL.Managers.Concretes;
 using Project.COREMVC.Models.Orders.PageVMs;
 using Project.COREMVC.Models.Orders.PureVMs;
 using Project.ENTITIES.Models;

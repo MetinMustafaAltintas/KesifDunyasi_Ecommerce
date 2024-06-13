@@ -16,6 +16,7 @@ namespace Project.COREMVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
+    [AutoValidateAntiforgeryToken]
     public class ProductController : Controller
     {
         readonly IProductManager _productManager;

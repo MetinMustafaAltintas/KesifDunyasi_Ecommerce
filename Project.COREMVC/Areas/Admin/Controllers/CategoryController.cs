@@ -9,6 +9,7 @@ namespace Project.COREMVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
+    [AutoValidateAntiforgeryToken]
     public class CategoryController : Controller
     {
         readonly ICategoryManager _categoryManager;

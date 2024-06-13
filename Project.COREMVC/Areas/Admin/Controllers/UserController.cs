@@ -13,6 +13,7 @@ namespace Project.COREMVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
+    [AutoValidateAntiforgeryToken]
     public class UserController : Controller
     {
         readonly UserManager<AppUser> _userManager;
