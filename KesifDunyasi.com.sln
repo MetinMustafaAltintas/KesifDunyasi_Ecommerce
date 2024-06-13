@@ -15,11 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.BLL", "Project.BLL\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.COREMVC", "Project.COREMVC\Project.COREMVC.csproj", "{C602A1F3-0682-40BA-A35B-4876E671133E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{43087BD7-300C-4675-A1D0-7A8369D0980E}"
-	ProjectSection(SolutionItems) = preProject
-		ProjeAdimlari.txt = ProjeAdimlari.txt
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
