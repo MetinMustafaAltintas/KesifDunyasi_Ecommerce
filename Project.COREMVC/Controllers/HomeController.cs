@@ -267,7 +267,7 @@ namespace Project.COREMVC.Controllers
                         ModelState.AddModelError("", error.Description);
                     }
                     return View();
-                };
+                }
             }
             return View();
         }
