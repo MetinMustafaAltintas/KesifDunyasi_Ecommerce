@@ -203,7 +203,11 @@ namespace Project.BLL.Managers.Concretes
             foreach (T item in list) metinler.Add(Destroy(item));
             return metinler;
         }
-
+        /// <summary>
+        /// update
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="originalEntity"></param>
         public virtual void Updated(T item, T originalEntity)
         {
              _iRep.Updated(item, originalEntity);

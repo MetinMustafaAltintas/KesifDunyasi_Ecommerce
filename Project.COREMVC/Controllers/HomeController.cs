@@ -46,7 +46,6 @@ namespace Project.COREMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Cagri: Automapper
                 Guid specId = Guid.NewGuid();
                 AppUser appUser = new()
                 {

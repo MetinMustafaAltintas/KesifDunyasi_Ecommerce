@@ -198,6 +198,7 @@ namespace Project.COREMVC.Controllers
                 order.ShipperID = 1;
                 order.PriceOfOrder = c.TotalPrice;
                 await _orderManager.AddAsync(order); //Önce Order'in ID'sinin olusması lazım... Burada Order'i kaydederek o ID'nin Identity sayesinde olusmasını saglıyoruz...
+
                 List<OrderedProducts> orderedProducts = new List<OrderedProducts>();
                 
                 foreach (CartItem item in c.GetCartItems)
@@ -208,6 +209,10 @@ namespace Project.COREMVC.Controllers
                     od.Quantity = item.Amount;
                     od.UnitPrice = item.UnitPrice;
                     await _orderDetailManager.AddAsync(od);
+
+                    Product product =  await _productManager.FindAsync(item.ID);
+                    product.UnitsInStock -= item.Amount;
+                    await _productManager.UpdateAsync(product);
 
                     OrderedProducts orderedProduct = new OrderedProducts();
                     orderedProduct.Name = item.ProductName;
