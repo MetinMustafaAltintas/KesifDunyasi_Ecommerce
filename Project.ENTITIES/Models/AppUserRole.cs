@@ -11,9 +11,6 @@ namespace Project.ENTITIES.Models
 {
     public class AppUserRole : IdentityUserRole<int>, IEntity
     {
-        //AppUserRole sınıfında Relational Property isimlerine cok dikkat ediniz...Bunların hepsi Identity'nin istedigi standartlara uygun verilmiştir...Cok dikkat edin eger bu Relation'lara müdahale edecekseniz bizzat Identity standartlarına uyun...
-
-        //Identity standartlarında normalde ilişkisel Property User,Role olarak istenir..UserId ve RoleId property'lerine gerek yoktur cünkü onlar zaten miras olarak gelmektedir...Relational Property'leri de bu yüzden User ve Role olarak veririz...
         public AppUserRole()
         {
             Status = DataStatus.Inserted;
@@ -28,7 +25,7 @@ namespace Project.ENTITIES.Models
 
         // Relational Properties
 
-        public virtual AppUser User { get; set; } //Property isminin User olduguna dikkat edin...Cünkü UserId property'sinden kaynaklanmaktadır...
+        public virtual AppUser User { get; set; }
 
         public virtual AppRole Role { get; set; }
     }

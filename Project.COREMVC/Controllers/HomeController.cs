@@ -12,7 +12,7 @@ using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Project.COREMVC.Controllers
 {
-    [AutoValidateAntiforgeryToken] //Get ile gelen sayfada verilen özel bir token sayesinde Post'un bu tokensiz yapýlamamasýný saglar...PostMan gibi third part software'lerinden gözlemlediginizde direkt Post tarafýna ulasamadýgýnýzý göreceksiniz...
+    [AutoValidateAntiforgeryToken] 
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
