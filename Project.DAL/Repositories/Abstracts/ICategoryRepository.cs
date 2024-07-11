@@ -9,6 +9,6 @@ namespace Project.DAL.Repositories.Abstracts
 {
     public interface ICategoryRepository : IRepository<Category>
     {
-        void SpecialCategoryCreation(Category category, List<Product> products);
+        
     }
 }

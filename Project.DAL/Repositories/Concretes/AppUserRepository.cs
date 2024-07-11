@@ -17,12 +17,5 @@ namespace Project.DAL.Repositories.Concretes
         {
             _userManager = userManager;
         }
-
-        public async Task<bool> AddUser(AppUser user)
-        {
-            IdentityResult result = await _userManager.CreateAsync(user, user.PasswordHash);
-            if (result.Succeeded) return true;
-            return false;
-        }
     }
 }

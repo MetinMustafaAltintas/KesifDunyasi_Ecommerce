@@ -9,6 +9,6 @@ namespace Project.BLL.Managers.Abstracts
 {
     public interface IAppUserManager : IManager<AppUser>
     {
-        Task<bool> AddUser(AppUser user);
+
     }
 }

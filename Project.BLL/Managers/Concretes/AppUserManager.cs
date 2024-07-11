@@ -17,10 +17,6 @@ namespace Project.BLL.Managers.Concretes
         {
             _appRep = appRep;
         }
-        public async Task<bool> AddUser(AppUser user)
-        {
-            return await _appRep.AddUser(user);
-        }
         public override string Add(AppUser item)
         {
             item.UserName = item.UserName.ToTitleCase();

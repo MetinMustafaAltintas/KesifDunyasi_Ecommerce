@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace Project.DAL.Repositories.Concretes
 {
-    //Artık .Net Core'de kullandıgımız Hybrid N-Tier Architecture'da BaseRepository class'ını Abstract olmayacak...Cünkü BaseRepository anlamlı veri modelleri olusturabilecek bir class'tır...
     public class BaseRepository<T> : IRepository<T> where T : class, IEntity
     {
         protected readonly MyContext _db;
@@ -38,18 +37,6 @@ namespace Project.DAL.Repositories.Concretes
             Save();
         }
 
-        public void AddRange(List<T> list)
-        {
-            _db.Set<T>().AddRange(list);
-            Save();
-        }
-
-        public async Task AddRangeAsync(List<T> list)
-        {
-            await _db.Set<T>().AddRangeAsync(list);
-            Save();
-        }
-
         public bool Any(Expression<Func<T, bool>> exp)
         {
             return _db.Set<T>().Any(exp);
@@ -68,20 +55,9 @@ namespace Project.DAL.Repositories.Concretes
             Save();
         }
 
-        public void DeleteRange(List<T> list)
-        {
-            foreach (T item in list) Delete(item);
-        }
-
         public void Destroy(T item)
         {
             _db.Set<T>().Remove(item);
-            Save();
-        }
-
-        public void DestroyRange(List<T> list)
-        {
-            _db.Set<T>().RemoveRange(list);
             Save();
         }
 
@@ -157,11 +133,6 @@ namespace Project.DAL.Repositories.Concretes
             T originalEntity = await FindAsync(item.ID);
             _db.Entry(originalEntity).CurrentValues.SetValues(item);
             Save();
-        }
-
-        public async Task UpdateRangeAsync(List<T> list)
-        {
-            foreach (T item in list) await UpdateAsync(item);
         }
 
         public List<T> Where(Expression<Func<T, bool>> exp)

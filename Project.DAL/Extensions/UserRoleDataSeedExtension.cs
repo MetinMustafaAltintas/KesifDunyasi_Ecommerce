@@ -18,7 +18,7 @@ namespace Project.DAL.Extensions
                 Id = 1,
                 Name = "Admin",
                 NormalizedName = "ADMIN",
-                ConcurrencyStamp = Guid.NewGuid().ToString() //Bu ifade sisteminizin yeni bir Guid yaratmasını saglar
+                ConcurrencyStamp = Guid.NewGuid().ToString()
             };
 
             modelBuilder.Entity<AppRole>().HasData(appRole);

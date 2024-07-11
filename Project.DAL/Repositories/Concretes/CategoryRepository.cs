@@ -16,16 +16,7 @@ namespace Project.DAL.Repositories.Concretes
 
         }
 
-        public void SpecialCategoryCreation(Category category, List<Product> products)
-        {
-            foreach (Product item in products)
-            {
-                category.Products.Add(item);
-            }
-
-            _db.Categories.Add(category);
-            Save();
-        }
+      
     }
 }
 

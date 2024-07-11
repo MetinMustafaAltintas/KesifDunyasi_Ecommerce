@@ -13,18 +13,6 @@ namespace Project.BLL.ServiceInjections
     {
         public static IServiceCollection AddRepServices(this IServiceCollection services)
         {
-            /*
-             
-             Transient Services: Bir Request'in ulastıgı Scope'un parametre kümesinde aynı tipten kac tane varsa o kadar instance alınır...Manager ve Repository'ler icin anlamsızdır...Cünkü bunlardan bir tanesi bir Request'teki scope icin yeterlidir...
-
-
-             Scoped Services: Bir Request'te Scope'un parametre kümesinde aynı tipte birden fazla parametre olsa bile 1 instance üzerinden calısırsınız...Ancak bu Singleton degildir...Cünkü Request'in işi bittigi zaman garbage collector Ram'den o instance'i kaldırır...Bir Request'in scope'unda aynı tipte birden fazla instance repository'ler ve Manager'lar icin gerekli degildir...O yüzden Scoped tercih edilir...
-
-             Singleton Services: Bir REquest'in ulastıgı Scope'un parametre kümesinde bir tip görüldügü anda instance alınır ve program kapatılıncaya kadar o instance'dan devam edilir...Manager ve Repository'ler icin cok tehlikelidir...
-
-            
-             */
-
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
 
             services.AddScoped<IProductRepository, ProductRepository>();

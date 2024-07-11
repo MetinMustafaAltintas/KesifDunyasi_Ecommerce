@@ -19,7 +19,6 @@ namespace Project.BLL.Managers.Concretes
 
         public override string Add(Order item)
         {
-            //BL (KDV,Gümrük,Kargo vs işlemleri(ücret işlemleri))
             return base.Add(item);
         }
 
