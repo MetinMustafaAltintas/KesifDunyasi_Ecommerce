@@ -23,7 +23,6 @@ namespace Project.BLL.Managers.Concretes
         {
             _iRep.Add(item);
             return "Ekleme basarılıdır";
-
         }
 
         public virtual async Task AddAsync(T item)

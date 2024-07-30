@@ -16,7 +16,6 @@ namespace Project.DAL.Repositories.Abstracts
         List<T> GetAll();
         List<T> GetActives();
 
-        //Todo: GetActivesAsync
         Task<List<T>> GetActivesAsync();
         List<T> GetPassives();
         List<T> GetModifieds();

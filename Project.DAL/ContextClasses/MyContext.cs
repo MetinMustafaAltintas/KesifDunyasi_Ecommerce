@@ -16,7 +16,7 @@ namespace Project.DAL.ContextClasses
     {
         public MyContext(DbContextOptions<MyContext> options):base(options)
         {
-
+                
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
